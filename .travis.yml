@@ -1,15 +1,14 @@
 language: java
 jdk:
   - oraclejdk8
-os:
-  - linux
 branches:
   only:
     - master
 install:
   - echo "skip 'gradle assemble' step"
 script:
-  - ./gradlew --no-daemon codeCoverageReport
+  - ./gradlew build --continue
+  - ./gradlew codeCoverageReport
 after_success:
   - bash <(curl -s https://codecov.io/bash)
 before_cache:
