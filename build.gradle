@@ -3,6 +3,7 @@ version '0.1.0-SNAPSHOT'
 
 apply plugin: 'java'
 apply plugin: 'idea'
+apply plugin: 'jacoco'
 
 sourceCompatibility = 1.8
 
@@ -36,6 +37,28 @@ dependencies {
 test {
     testLogging {
         events "passed", "skipped", "failed", "standardOut", "standardError"
+    }
+}
+
+task codeCoverageReport(type: JacocoReport) {
+    dependsOn = tasks.withType(Test)
+    additionalSourceDirs = files(sourceSets.main.allSource.srcDirs, subprojects.sourceSets.main.allSource.srcDirs)
+    sourceDirectories = files(sourceSets.main.allSource.srcDirs, subprojects.sourceSets.main.allSource.srcDirs)
+    classDirectories = files(sourceSets.main.output, subprojects.sourceSets.main.output)
+    executionData = files(jacocoTestReport.executionData, subprojects.jacocoTestReport.executionData)
+    reports {
+        html.enabled = true
+        xml.enabled = true
+    }
+
+    onlyIf = {
+        true
+    }
+
+    doFirst {
+        executionData = files(executionData.findAll {
+            it.exists()
+        })
     }
 }
 
