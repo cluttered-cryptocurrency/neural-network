@@ -9,8 +9,7 @@ branches:
 install:
   - echo "skip 'gradle assemble' step"
 script:
-  - ./gradlew --no-daemon build --continue
-  - ./gradlew codeCoverageReport
+  - ./gradlew --no-daemon codeCoverageReport
 after_success:
   - bash <(curl -s https://codecov.io/bash)
 before_cache:
