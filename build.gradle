@@ -9,9 +9,13 @@ sourceCompatibility = 1.8
 ext {
     _gradleVersion = '4.0.1'
 
+    bigMathVersion = '1.2.0'
+    slf4jVersion = '1.7.25'
+
+    assertjVersion = '3.8.0'
+    jmockitVersion = '1.33'
     junitVersion = '4.12'
 }
-
 
 repositories {
     mavenLocal()
@@ -19,6 +23,13 @@ repositories {
 }
 
 dependencies {
+    compile "ch.obermuhlner:big-math:${bigMathVersion}"
+    compile "org.slf4j:slf4j-api:${slf4jVersion}"
+    compile "org.slf4j:slf4j-ext:${slf4jVersion}"
+
+    testCompile "org.slf4j:slf4j-simple:${slf4jVersion}"
+    testCompile "org.assertj:assertj-core:${assertjVersion}"
+    testCompile "org.jmockit:jmockit:${jmockitVersion}"
     testCompile "junit:junit:${junitVersion}"
 }
 
