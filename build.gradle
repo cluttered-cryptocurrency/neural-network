@@ -33,6 +33,12 @@ dependencies {
     testCompile "junit:junit:${junitVersion}"
 }
 
+test {
+    testLogging {
+        events "passed", "skipped", "failed", "standardOut", "standardError"
+    }
+}
+
 task wrapper(type: Wrapper) {
     gradleVersion = _gradleVersion
 }
