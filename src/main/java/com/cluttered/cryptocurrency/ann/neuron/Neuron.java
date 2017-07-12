@@ -3,6 +3,7 @@ package com.cluttered.cryptocurrency.ann.neuron;
 import ch.obermuhlner.math.big.BigFloat;
 import com.cluttered.cryptocurrency.ann.activation.Activation;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.IntStream;
 
@@ -23,6 +24,28 @@ public class Neuron {
 
     public static NeuronBuilder builder() {
         return NeuronBuilder.create();
+    }
+
+    /**
+     * Fire this {@code Neuron} with the specified {@code input}. The output of this {@code Neuron} is returned.
+     *
+     * @param input The input used to calculate the {@code Neuron} object's output.
+     * @return The output of this {@code Neuron}.
+     */
+    public BigFloat fire(final BigFloat input) {
+        final List<BigFloat> inputs = Collections.singletonList(input);
+        return fire(inputs);
+    }
+
+    /**
+     * Fire with {@code Neuron} with the specified {@code input}. The output of this {@code Neuron} is returned.
+     *
+     * @param inputs The {@code list} of {@code BigFloat} objects used to calculate the {@code Neuron} object's output.
+     * @return The output of this {@code Neuron}.
+     */
+    public BigFloat fire(final List<BigFloat> inputs) {
+        final BigFloat biasDotProduct = dotProductWithWeights(inputs).subtract(bias);
+        return activation.evaluate(biasDotProduct);
     }
 
     private BigFloat dotProductWithWeights(final List<BigFloat> inputs) {

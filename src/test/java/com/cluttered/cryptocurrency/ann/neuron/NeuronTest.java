@@ -14,6 +14,7 @@ import java.util.List;
 
 import static com.cluttered.cryptocurrency.ann.activation.Activation.LINEAR;
 import static java.math.RoundingMode.HALF_UP;
+import static mockit.Deencapsulation.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -40,9 +41,9 @@ public class NeuronTest {
 
     @Test
     public void testConstructor() {
-        final BigFloat privateBias = Deencapsulation.getField(neuron, "bias");
-        final List<BigFloat> privateWeights = Deencapsulation.getField(neuron, "weights");
-        final Activation privateActivation = Deencapsulation.getField(neuron, "activation");
+        final BigFloat privateBias = getField(neuron, "bias");
+        final List<BigFloat> privateWeights = getField(neuron, "weights");
+        final Activation privateActivation = getField(neuron, "activation");
 
         assertThat(privateBias).isEqualTo(bias);
         assertThat(privateWeights).isEqualTo(weights);
@@ -61,6 +62,46 @@ public class NeuronTest {
     }
 
     @Test
+    public void testFire_SingleInput(@Mocked final BigFloat input,
+                                     @Mocked final BigFloat expected) {
+
+        final List<BigFloat> singletonList = Collections.singletonList(input);
+
+        new Expectations(neuron) {{
+            neuron.fire(singletonList); times = 1; result = expected;
+        }};
+
+        final BigFloat result = neuron.fire(input);
+
+        assertThat(result).isEqualTo(expected);
+    }
+
+    @Test
+    public void testFire(@Mocked final List<BigFloat> inputs,
+                         @Mocked final BigFloat dotProduct,
+                         @Mocked final BigFloat subtraction,
+                         @Mocked final BigFloat expected) {
+
+        new MockUp<Neuron>() {
+            @Mock(invocations = 1)
+            @SuppressWarnings("unused")
+            private BigFloat dotProductWithWeights(final List<BigFloat> mockInputs) {
+                assertThat(mockInputs).isEqualTo(inputs);
+                return dotProduct;
+            }
+        };
+
+        new Expectations() {{
+            dotProduct.subtract(bias); times = 1; result = subtraction;
+            activation.evaluate(subtraction); times = 1; result = expected;
+        }};
+
+        final BigFloat result = neuron.fire(inputs);
+
+        assertThat(result).isEqualTo(expected);
+    }
+
+    @Test
     public void testDotProductWithWeights() {
         // initialize for jmockit quirk
         MathContext MATH_CONTEXT_100_HALF_UP = new MathContext(100, HALF_UP);
@@ -71,7 +112,7 @@ public class NeuronTest {
                 BIG_FLOAT_CONTEXT_100_HALF_UP.valueOf(34.68492),
                 BIG_FLOAT_CONTEXT_100_HALF_UP.valueOf(63.56372)
         );
-        Deencapsulation.setField(neuron, "weights", weights);
+        setField(neuron, "weights", weights);
 
         final List<BigFloat> inputs = Arrays.asList(
                 BIG_FLOAT_CONTEXT_100_HALF_UP.valueOf(22.34567),
@@ -80,7 +121,7 @@ public class NeuronTest {
         );
         final BigFloat expected = BIG_FLOAT_CONTEXT_100_HALF_UP.valueOf(32386.9165527578);
 
-        final BigFloat result = Deencapsulation.invoke(neuron, "dotProductWithWeights", inputs);
+        final BigFloat result = invoke(neuron, "dotProductWithWeights", inputs);
 
         assertThat(result).isEqualByComparingTo(expected);
     }
@@ -91,6 +132,6 @@ public class NeuronTest {
         final Neuron neuron = Neuron.builder().weights(weights).build();
 
         final List<BigFloat> inputs = Arrays.asList(bigFloat, bigFloat, bigFloat);
-        Deencapsulation.invoke(neuron, "dotProductWithWeights", inputs);
+        invoke(neuron, "dotProductWithWeights", inputs);
     }
 }
