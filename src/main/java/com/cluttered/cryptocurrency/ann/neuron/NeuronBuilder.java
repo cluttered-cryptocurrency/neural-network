@@ -23,7 +23,7 @@ class NeuronBuilder {
 
     private NeuronBuilder() {}
 
-    static NeuronBuilder create() {
+    protected static NeuronBuilder create() {
         return new NeuronBuilder();
     }
 
