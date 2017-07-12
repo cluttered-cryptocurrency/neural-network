@@ -8,6 +8,7 @@ import java.util.Collections;
 import java.util.List;
 
 import static com.cluttered.cryptocurrency.BigFloatConstants.ONE;
+import static com.cluttered.cryptocurrency.BigFloatConstants.ZERO;
 import static com.cluttered.cryptocurrency.ann.activation.Activation.LINEAR;
 import static com.cluttered.cryptocurrency.ann.activation.Activation.SIGMOID;
 import static com.cluttered.cryptocurrency.ann.activation.Activation.TAN_H;
@@ -17,7 +18,8 @@ import static com.cluttered.cryptocurrency.ann.activation.Activation.TAN_H;
  */
 class NeuronBuilder {
 
-    private BigFloat bias = ONE;
+    // Defaults to InputNeuron
+    private BigFloat bias = ZERO;
     private List<BigFloat> weights = Collections.singletonList(ONE);
     private Activation activation = LINEAR;
 

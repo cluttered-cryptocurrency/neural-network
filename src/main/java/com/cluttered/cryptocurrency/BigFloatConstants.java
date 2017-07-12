@@ -16,4 +16,5 @@ public interface BigFloatConstants {
     BigFloat.Context BIG_FLOAT_CONTEXT_100_HALF_UP = BigFloat.context(MATH_CONTEXT_100_HALF_UP);
 
     BigFloat ONE = BIG_FLOAT_CONTEXT_100_HALF_UP.valueOf(BigDecimal.ONE);
+    BigFloat ZERO = BIG_FLOAT_CONTEXT_100_HALF_UP.valueOf(BigDecimal.ZERO);
 }
