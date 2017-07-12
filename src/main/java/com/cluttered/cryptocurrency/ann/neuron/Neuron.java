@@ -25,7 +25,7 @@ public class Neuron {
         return NeuronBuilder.create();
     }
 
-    protected BigFloat dotProductWithWeights(final List<BigFloat> inputs) {
+    private BigFloat dotProductWithWeights(final List<BigFloat> inputs) {
         if (inputs.size() != weights.size()) {
             throw new IllegalArgumentException("inputs (" + inputs.size() + ") and weights (" + weights.size() + ") must have the same number of elements");
         }

@@ -80,7 +80,7 @@ public class NeuronTest {
         );
         final BigFloat expected = BIG_FLOAT_CONTEXT_100_HALF_UP.valueOf(32386.9165527578);
 
-        final BigFloat result = neuron.dotProductWithWeights(inputs);
+        final BigFloat result = Deencapsulation.invoke(neuron, "dotProductWithWeights", inputs);
 
         assertThat(result).isEqualByComparingTo(expected);
     }
