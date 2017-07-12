@@ -14,7 +14,7 @@ ext {
     slf4jVersion = '1.7.25'
 
     assertjVersion = '3.8.0'
-    jmockitVersion = '1.33'
+    jmockitVersion = '1.24'
     junitVersion = '4.12'
 }
 
@@ -45,10 +45,11 @@ task codeCoverageReport(type: JacocoReport) {
     sourceDirectories = files(sourceSets.main.allSource.srcDirs, subprojects.sourceSets.main.allSource.srcDirs)
     classDirectories = files(sourceSets.main.output, subprojects.sourceSets.main.output)
     executionData = files(jacocoTestReport.executionData, subprojects.jacocoTestReport.executionData)
+
     reports {
         html.enabled true
         xml.enabled true
-        xml.destination "${buildDir}/reports/jacoco/report.xml"
+        xml.destination file("${buildDir}/reports/jacoco/report.xml")
     }
 
     onlyIf = {
