@@ -2,9 +2,7 @@ package com.cluttered.cryptocurrency.ann.neuron;
 
 import ch.obermuhlner.math.big.BigFloat;
 import com.cluttered.cryptocurrency.ann.activation.Activation;
-import mockit.Deencapsulation;
-import mockit.Injectable;
-import mockit.Tested;
+import mockit.*;
 import mockit.integration.junit4.JMockit;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -47,4 +45,14 @@ public class NeuronTest {
         assertThat(privateActivation).isEqualTo(activation);
     }
 
+    @Test
+    public void testBuilder(@Mocked final NeuronBuilder neuronBuilder) {
+        new Expectations() {{
+            NeuronBuilder.create(); times = 1; result = neuronBuilder;
+        }};
+
+        final NeuronBuilder result = Neuron.builder();
+
+        assertThat(result).isEqualTo(neuronBuilder);
+    }
 }

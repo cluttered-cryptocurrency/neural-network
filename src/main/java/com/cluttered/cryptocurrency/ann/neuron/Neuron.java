@@ -19,4 +19,8 @@ public class Neuron {
         this.weights = weights;
         this.activation = activation;
     }
+
+    public static NeuronBuilder builder() {
+        return NeuronBuilder.create();
+    }
 }

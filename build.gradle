@@ -26,7 +26,6 @@ repositories {
 dependencies {
     compile "ch.obermuhlner:big-math:${bigMathVersion}"
     compile "org.slf4j:slf4j-api:${slf4jVersion}"
-    compile "org.slf4j:slf4j-ext:${slf4jVersion}"
 
     testCompile "org.slf4j:slf4j-simple:${slf4jVersion}"
     testCompile "org.assertj:assertj-core:${assertjVersion}"
