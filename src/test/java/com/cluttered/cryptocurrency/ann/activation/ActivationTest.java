@@ -30,7 +30,7 @@ public class ActivationTest {
                                       @Mocked final BigFloat exponent,
                                       @Mocked final BigFloat addition,
                                       @Mocked final BigFloat expected) {
-        // Initialize ONE before test (weird quirk)
+        // Initialize ONE before test (jmockit quirk)
         final BigFloat one = ONE;
 
         new Expectations() {{
