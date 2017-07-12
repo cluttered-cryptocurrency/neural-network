@@ -7,8 +7,11 @@ import mockit.integration.junit4.JMockit;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
+import static com.cluttered.cryptocurrency.BigFloatConstants.BIG_FLOAT_CONTEXT_100_HALF_UP;
 import static com.cluttered.cryptocurrency.ann.activation.Activation.LINEAR;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -54,5 +57,35 @@ public class NeuronTest {
         final NeuronBuilder result = Neuron.builder();
 
         assertThat(result).isEqualTo(neuronBuilder);
+    }
+
+    @Test
+    public void testDotProductWithWeights() {
+        final List<BigFloat> weights = Arrays.asList(
+                BIG_FLOAT_CONTEXT_100_HALF_UP.valueOf(95.48294),
+                BIG_FLOAT_CONTEXT_100_HALF_UP.valueOf(34.68492),
+                BIG_FLOAT_CONTEXT_100_HALF_UP.valueOf(63.56372)
+        );
+        Deencapsulation.setField(neuron, "weights", weights);
+
+        final List<BigFloat> inputs = Arrays.asList(
+                BIG_FLOAT_CONTEXT_100_HALF_UP.valueOf(22.34567),
+                BIG_FLOAT_CONTEXT_100_HALF_UP.valueOf(870.39846),
+                BIG_FLOAT_CONTEXT_100_HALF_UP.valueOf(1.00034)
+        );
+        final BigFloat expected = BIG_FLOAT_CONTEXT_100_HALF_UP.valueOf(32386.9165527578);
+
+        final BigFloat result = Deencapsulation.invoke(neuron, "dotProductWithWeights", inputs);
+
+        assertThat(result).isEqualTo(expected);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testDotProductWithWeights_SizeDiff(@Mocked final BigFloat bigFloat) {
+        final List<BigFloat> weights = Collections.singletonList(bigFloat);
+        Deencapsulation.setField(neuron, "weights", weights);
+
+        final List<BigFloat> inputs = Arrays.asList(bigFloat, bigFloat, bigFloat);
+        Deencapsulation.invoke(neuron, "dotProductWithWeights", inputs);
     }
 }
