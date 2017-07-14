@@ -14,7 +14,7 @@ import static com.cluttered.cryptocurrency.ann.activation.Activation.*;
 /**
  * @author cluttered.code@gmail.com
  */
-class NeuronBuilder {
+public class NeuronBuilder {
 
     // Defaults to InputNeuron
     private BigFloat bias = ZERO;
