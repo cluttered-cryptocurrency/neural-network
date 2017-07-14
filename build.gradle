@@ -11,7 +11,6 @@ ext {
     _gradleVersion = '4.0.1'
 
     bigMathVersion = '1.2.0'
-    gsonVersion = '2.8.1'
     slf4jVersion = '1.7.25'
 
     assertjVersion = '3.8.0'
@@ -26,7 +25,6 @@ repositories {
 
 dependencies {
     compile "ch.obermuhlner:big-math:${bigMathVersion}"
-    compile "com.google.code.gson:gson:${gsonVersion}"
     compile "org.slf4j:slf4j-api:${slf4jVersion}"
 
     testCompile "org.slf4j:slf4j-simple:${slf4jVersion}"
