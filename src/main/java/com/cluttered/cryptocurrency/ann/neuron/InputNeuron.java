@@ -12,7 +12,7 @@ public class InputNeuron implements Neuron {
     @Override
     public BigFloat fire(final List<BigFloat> inputs) {
         if(inputs.size() != 1)
-            throw new IllegalArgumentException("InputNeuron accept one, and only one input");
+            throw new IllegalArgumentException("InputNeuron accepts one, and only one input");
         return inputs.get(0);
     }
 }
