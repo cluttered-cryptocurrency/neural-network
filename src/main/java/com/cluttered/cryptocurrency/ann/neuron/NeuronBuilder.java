@@ -21,7 +21,8 @@ class NeuronBuilder {
     private List<BigFloat> weights = Collections.singletonList(ONE);
     private Activation activation = LINEAR;
 
-    private NeuronBuilder() {}
+    private NeuronBuilder() {
+    }
 
     protected static NeuronBuilder create() {
         return new NeuronBuilder();
@@ -59,6 +60,6 @@ class NeuronBuilder {
     }
 
     public Neuron build() {
-        return new NormalNeuron(bias, weights, activation);
+        return new Neuron(bias, weights, activation);
     }
 }
