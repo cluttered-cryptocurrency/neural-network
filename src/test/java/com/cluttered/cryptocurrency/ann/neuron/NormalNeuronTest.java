@@ -62,21 +62,6 @@ public class NormalNeuronTest {
     }
 
     @Test
-    public void testFire_SingleInput(@Mocked final BigFloat input,
-                                     @Mocked final BigFloat expected) {
-
-        final List<BigFloat> singletonList = Collections.singletonList(input);
-
-        new Expectations(neuron) {{
-            neuron.fire(singletonList); times = 1; result = expected;
-        }};
-
-        final BigFloat result = neuron.fire(input);
-
-        assertThat(result).isEqualTo(expected);
-    }
-
-    @Test
     public void testFire(@Mocked final List<BigFloat> inputs,
                          @Mocked final BigFloat dotProduct,
                          @Mocked final BigFloat subtraction,
