@@ -9,7 +9,7 @@ import org.junit.Test;
 import java.util.Collections;
 import java.util.List;
 
-import static com.cluttered.cryptocurrency.NeuralNetworkConstants.ONE;
+import static com.cluttered.cryptocurrency.ann.MathConstants.ONE;
 import static com.cluttered.cryptocurrency.ann.activation.Activation.*;
 import static org.assertj.core.api.Assertions.assertThat;
 

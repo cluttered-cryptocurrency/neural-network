@@ -1,4 +1,4 @@
-package com.cluttered.cryptocurrency;
+package com.cluttered.cryptocurrency.ann;
 
 import ch.obermuhlner.math.big.BigFloat;
 
@@ -10,7 +10,7 @@ import static java.math.RoundingMode.HALF_UP;
 /**
  * @author cluttered.code@gmail.com
  */
-public interface NeuralNetworkConstants {
+public interface MathConstants {
 
     MathContext MATH_CONTEXT_100_HALF_UP = new MathContext(100, HALF_UP);
     BigFloat.Context BIG_FLOAT_CONTEXT_100_HALF_UP = BigFloat.context(MATH_CONTEXT_100_HALF_UP);

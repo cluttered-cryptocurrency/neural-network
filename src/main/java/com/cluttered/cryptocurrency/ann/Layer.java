@@ -1,4 +1,4 @@
-package com.cluttered.cryptocurrency.ann.layer;
+package com.cluttered.cryptocurrency.ann;
 
 import ch.obermuhlner.math.big.BigFloat;
 import com.cluttered.cryptocurrency.ann.neuron.Neuron;
@@ -9,15 +9,14 @@ import java.util.stream.Collectors;
 /**
  * @author cluttered.code@gmail.com
  */
-public class NormalLayer implements Layer {
+public class Layer {
 
     private final List<Neuron> neurons;
 
-    private NormalLayer(final List<Neuron> neurons) {
+    private Layer(final List<Neuron> neurons) {
         this.neurons = neurons;
     }
 
-    @Override
     public List<BigFloat> fire(final List<BigFloat> inputs) {
         // TODO: parallelize and profile speed
         return neurons.stream()

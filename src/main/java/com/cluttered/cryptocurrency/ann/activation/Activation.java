@@ -2,7 +2,7 @@ package com.cluttered.cryptocurrency.ann.activation;
 
 import ch.obermuhlner.math.big.BigFloat;
 
-import static com.cluttered.cryptocurrency.NeuralNetworkConstants.ONE;
+import static com.cluttered.cryptocurrency.ann.MathConstants.ONE;
 
 /**
  * @author cluttered.code@gmail.com
