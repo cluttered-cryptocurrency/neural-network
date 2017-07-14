@@ -21,11 +21,11 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author cluttered.code@gmail.com
  */
 @RunWith(JMockit.class)
-public class NeuronTest {
+public class NeuronImplTest {
 
     @Tested
     @SuppressWarnings("unused")
-    private Neuron neuron;
+    private NeuronImpl neuron;
 
     @Injectable
     @SuppressWarnings("unused")
@@ -56,7 +56,7 @@ public class NeuronTest {
             NeuronBuilder.create(); times = 1; result = neuronBuilder;
         }};
 
-        final NeuronBuilder result = Neuron.builder();
+        final NeuronBuilder result = NeuronImpl.builder();
 
         assertThat(result).isEqualTo(neuronBuilder);
     }
@@ -82,7 +82,7 @@ public class NeuronTest {
                          @Mocked final BigFloat subtraction,
                          @Mocked final BigFloat expected) {
 
-        new MockUp<Neuron>() {
+        new MockUp<NeuronImpl>() {
             @Mock(invocations = 1)
             @SuppressWarnings("unused")
             private BigFloat dotProductWithWeights(final List<BigFloat> mockInputs) {
@@ -129,7 +129,7 @@ public class NeuronTest {
     @Test(expected = IllegalArgumentException.class)
     public void testDotProductWithWeights_SizeDiff(@Mocked final BigFloat bigFloat) {
         final List<BigFloat> weights = Collections.singletonList(bigFloat);
-        final Neuron neuron = Neuron.builder().weights(weights).build();
+        final Neuron neuron = NeuronImpl.builder().weights(weights).build();
 
         final List<BigFloat> inputs = Arrays.asList(bigFloat, bigFloat, bigFloat);
         invoke(neuron, "dotProductWithWeights", inputs);

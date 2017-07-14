@@ -10,9 +10,7 @@ import java.util.Collections;
 import java.util.List;
 
 import static com.cluttered.cryptocurrency.BigFloatConstants.ONE;
-import static com.cluttered.cryptocurrency.ann.activation.Activation.LINEAR;
-import static com.cluttered.cryptocurrency.ann.activation.Activation.SIGMOID;
-import static com.cluttered.cryptocurrency.ann.activation.Activation.TAN_H;
+import static com.cluttered.cryptocurrency.ann.activation.Activation.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**

@@ -61,6 +61,6 @@ class NeuronBuilder {
     }
 
     public Neuron build() {
-        return new Neuron(bias, weights, activation);
+        return new NeuronImpl(bias, weights, activation);
     }
 }
