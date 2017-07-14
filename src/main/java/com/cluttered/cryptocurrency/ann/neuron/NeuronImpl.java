@@ -3,7 +3,6 @@ package com.cluttered.cryptocurrency.ann.neuron;
 import ch.obermuhlner.math.big.BigFloat;
 import com.cluttered.cryptocurrency.ann.activation.Activation;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.IntStream;
 
