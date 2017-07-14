@@ -9,13 +9,13 @@ import java.util.stream.IntStream;
 /**
  * @author cluttered.code@gmail.com
  */
-public class NeuronImpl implements Neuron {
+public class NormalNeuron implements Neuron {
 
     private final BigFloat bias;
     private final List<BigFloat> weights;
     private final Activation activation;
 
-    NeuronImpl(final BigFloat bias, final List<BigFloat> weights, final Activation activation) {
+    NormalNeuron(final BigFloat bias, final List<BigFloat> weights, final Activation activation) {
         this.bias = bias;
         this.weights = weights;
         this.activation = activation;
