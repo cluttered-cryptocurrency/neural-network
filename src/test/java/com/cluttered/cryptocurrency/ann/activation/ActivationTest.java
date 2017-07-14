@@ -9,7 +9,7 @@ import mockit.integration.junit4.JMockit;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static com.cluttered.cryptocurrency.BigFloatConstants.ONE;
+import static com.cluttered.cryptocurrency.NeuralNetworkConstants.ONE;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**

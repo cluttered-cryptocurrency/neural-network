@@ -7,8 +7,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static com.cluttered.cryptocurrency.BigFloatConstants.ONE;
-import static com.cluttered.cryptocurrency.BigFloatConstants.ZERO;
+import static com.cluttered.cryptocurrency.NeuralNetworkConstants.ONE;
+import static com.cluttered.cryptocurrency.NeuralNetworkConstants.ZERO;
 import static com.cluttered.cryptocurrency.ann.activation.Activation.*;
 
 /**

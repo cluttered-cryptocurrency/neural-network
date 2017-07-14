@@ -10,7 +10,7 @@ import static java.math.RoundingMode.HALF_UP;
 /**
  * @author cluttered.code@gmail.com
  */
-public interface BigFloatConstants {
+public interface NeuralNetworkConstants {
 
     MathContext MATH_CONTEXT_100_HALF_UP = new MathContext(100, HALF_UP);
     BigFloat.Context BIG_FLOAT_CONTEXT_100_HALF_UP = BigFloat.context(MATH_CONTEXT_100_HALF_UP);
