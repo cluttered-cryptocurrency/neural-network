@@ -6,19 +6,23 @@ import com.cluttered.cryptocurrency.ann.NeuralNetwork;
 import com.cluttered.cryptocurrency.ann.neuron.Neuron;
 import org.junit.Test;
 
+import java.math.MathContext;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static com.cluttered.cryptocurrency.ann.MathConstants.BIG_FLOAT_CONTEXT_100_HALF_UP;
 import static com.cluttered.cryptocurrency.ann.MathConstants.ONE;
 import static com.cluttered.cryptocurrency.ann.MathConstants.ZERO;
+import static java.math.RoundingMode.HALF_UP;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author cluttered.code@gmail.com
  */
 public class XorTest {
+
+    private static final MathContext MATH_CONTEXT_100_HALF_UP = new MathContext(100, HALF_UP);
+    private static final BigFloat.Context BIG_FLOAT_CONTEXT_100_HALF_UP = BigFloat.context(MATH_CONTEXT_100_HALF_UP);
 
     private static BigFloat bigFloat(final String value) {
         return BIG_FLOAT_CONTEXT_100_HALF_UP.valueOf(value);
