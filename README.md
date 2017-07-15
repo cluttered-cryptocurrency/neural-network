@@ -8,3 +8,20 @@
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/cluttered-cryptocurrency/neural-network/master/LICENSE)
 
 [![JitPack](https://jitpack.io/v/cluttered-cryptocurrency/neural-network.svg)](https://jitpack.io/#cluttered-cryptocurrency/neural-network)
+
+## XOR Example
+
+[XOR Example Source](src/test/integration/XorTest.java)
+
+**Diagram**
+
+![XOR Diagram](https://raw.githubusercontent.com/cluttered-cryptocurrency/neural-network/master/xor-neural-network.png)
+
+**Logic Table**
+
+|   P   |   Q   | P&oplus;Q |
+| :---: | :---: | :-------: |
+|   0   |   0   |     0     |
+|   1   |   0   |     1     |
+|   0   |   1   |     1     |
+|   1   |   1   |     0     |
