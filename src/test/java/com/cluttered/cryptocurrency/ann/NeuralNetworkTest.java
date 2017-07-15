@@ -15,7 +15,6 @@ import java.util.List;
 
 import static mockit.Deencapsulation.setField;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.in;
 
 /**
  * @author cluttered.code@gmail.com
