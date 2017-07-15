@@ -3,6 +3,7 @@ package com.cluttered.cryptocurrency.ann;
 import ch.obermuhlner.math.big.BigFloat;
 import com.cluttered.cryptocurrency.ann.neuron.Neuron;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,8 +20,10 @@ public class Layer {
 
     public List<BigFloat> fire(final List<BigFloat> inputs) {
         // TODO: parallelize and profile speed
-        return neurons.stream()
-                .map(neuron -> neuron.fire(inputs))
-                .collect(Collectors.toList());
+        final List<BigFloat> results = new ArrayList<>(neurons.size());
+        for(final Neuron neuron : neurons) {
+            results.add(neuron.fire(inputs));
+        }
+        return results;
     }
 }
