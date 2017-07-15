@@ -4,7 +4,8 @@ import ch.obermuhlner.math.big.BigFloat;
 import com.cluttered.cryptocurrency.ann.Layer;
 import com.cluttered.cryptocurrency.ann.NeuralNetwork;
 import com.cluttered.cryptocurrency.ann.neuron.Neuron;
-import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.math.MathContext;
 import java.util.Arrays;
@@ -21,6 +22,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 public class XorTest {
 
+    private static final Logger LOG = LoggerFactory.getLogger(XorTest.class);
     private static final MathContext MATH_CONTEXT_100_HALF_UP = new MathContext(100, HALF_UP);
     private static final BigFloat.Context BIG_FLOAT_CONTEXT_100_HALF_UP = BigFloat.context(MATH_CONTEXT_100_HALF_UP);
 
@@ -28,8 +30,7 @@ public class XorTest {
         return BIG_FLOAT_CONTEXT_100_HALF_UP.valueOf(value);
     }
 
-    @Test
-    public void xorTest() {
+    public static void xorTest() {
         // Hidden Layer
         final Neuron hiddenNeuron1 = Neuron.builder()
                 .sigmoid()
@@ -73,5 +74,10 @@ public class XorTest {
         final List<BigFloat> inputs4 = Arrays.asList(ONE, ONE);
         final BigFloat result4 = neuralNetwork.fire(inputs4).get(0);
         assertThat(result4.isLessThan(bigFloat("1E-10"))).isTrue();
+    }
+
+    public static void main(final String[] args) {
+        xorTest();
+        LOG.info("XOR Test Passed");
     }
 }
