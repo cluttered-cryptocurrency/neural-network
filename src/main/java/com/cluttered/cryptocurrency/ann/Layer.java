@@ -5,7 +5,6 @@ import com.cluttered.cryptocurrency.ann.neuron.Neuron;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @author cluttered.code@gmail.com
