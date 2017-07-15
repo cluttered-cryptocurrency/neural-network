@@ -15,6 +15,7 @@ import java.util.List;
 
 import static mockit.Deencapsulation.setField;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.in;
 
 /**
  * @author cluttered.code@gmail.com
@@ -55,5 +56,13 @@ public class NeuralNetworkTest {
         final List<BigFloat> result = neuralNetwork.fire(inputs);
 
         assertThat(result).isEqualTo(expectedList3);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testFire_WrongSize(@Mocked final List<BigFloat> inputs) {
+        final Long inputSize = 32L;
+        setField(neuralNetwork, "inputSize", inputSize);
+
+        neuralNetwork.fire(inputs);
     }
 }
