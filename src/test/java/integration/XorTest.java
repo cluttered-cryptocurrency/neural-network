@@ -7,14 +7,13 @@ import com.cluttered.cryptocurrency.ann.neuron.Neuron;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.math.MathContext;
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static com.cluttered.cryptocurrency.ann.MathConstants.ONE;
-import static com.cluttered.cryptocurrency.ann.MathConstants.ZERO;
-import static java.math.RoundingMode.HALF_UP;
+import static com.cluttered.cryptocurrency.ann.MathConstants.*;
+import static java.math.BigDecimal.ROUND_HALF_UP;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -23,8 +22,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class XorTest {
 
     private static final Logger LOG = LoggerFactory.getLogger(XorTest.class);
-    private static final MathContext MATH_CONTEXT_100_HALF_UP = new MathContext(100, HALF_UP);
-    private static final BigFloat.Context BIG_FLOAT_CONTEXT_100_HALF_UP = BigFloat.context(MATH_CONTEXT_100_HALF_UP);
 
     private static BigFloat bigFloat(final String value) {
         return BIG_FLOAT_CONTEXT_100_HALF_UP.valueOf(value);
@@ -58,22 +55,30 @@ public class XorTest {
         // [0, 0] -> [0]
         final List<BigFloat> inputs1 = Arrays.asList(ZERO, ZERO);
         final BigFloat result1 = neuralNetwork.fire(inputs1).get(0);
-        assertThat(result1.isLessThan(bigFloat("1E-10"))).isTrue();
+        final BigDecimal roundedResult1 = result1.toBigDecimal().setScale(10, ROUND_HALF_UP);
+        LOG.info("1) {} -> {}", inputs1, roundedResult1);
+        assertThat(roundedResult1).isEqualTo(BigDecimal.ZERO.setScale(10));
 
         // [1, 0] -> [1]
         final List<BigFloat> inputs2 = Arrays.asList(ONE, ZERO);
         final BigFloat result2 = neuralNetwork.fire(inputs2).get(0);
-        assertThat(result2.isGreaterThan(bigFloat("0.9999999999")));
+        final BigDecimal roundedResult2 = result2.toBigDecimal().setScale(10, ROUND_HALF_UP);
+        LOG.info("2) {} -> {}", inputs2, roundedResult2);
+        assertThat(roundedResult2).isEqualTo(BigDecimal.ONE.setScale(10));
 
         // [0, 1] -> [1]
         final List<BigFloat> inputs3 = Arrays.asList(ZERO, ONE);
         final BigFloat result3 = neuralNetwork.fire(inputs3).get(0);
-        assertThat(result3.isGreaterThan(bigFloat("0.9999999999")));
+        final BigDecimal roundedResult3 = result3.toBigDecimal().setScale(10, ROUND_HALF_UP);
+        LOG.info("3) {} -> {}", inputs3, roundedResult3);
+        assertThat(roundedResult3).isEqualTo(BigDecimal.ONE.setScale(10));
 
         // [1, 1] -> [0]
         final List<BigFloat> inputs4 = Arrays.asList(ONE, ONE);
         final BigFloat result4 = neuralNetwork.fire(inputs4).get(0);
-        assertThat(result4.isLessThan(bigFloat("1E-10"))).isTrue();
+        final BigDecimal roundedResult4 = result4.toBigDecimal().setScale(10, ROUND_HALF_UP);
+        LOG.info("4) {} -> {}", inputs4, roundedResult4);
+        assertThat(roundedResult4).isEqualTo(BigDecimal.ZERO.setScale(10));
     }
 
     public static void main(final String[] args) {
