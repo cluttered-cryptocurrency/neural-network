@@ -13,7 +13,7 @@ public class Layer {
 
     private final List<Neuron> neurons;
 
-    private Layer(final List<Neuron> neurons) {
+    public Layer(final List<Neuron> neurons) {
         this.neurons = neurons;
     }
 

@@ -12,7 +12,7 @@ public class NeuralNetwork {
     private final long inputSize;
     private final List<Layer> layers;
 
-    private NeuralNetwork(final int inputSize, final List<Layer> layers) {
+    public NeuralNetwork(final int inputSize, final List<Layer> layers) {
         this.inputSize = inputSize;
         this.layers = layers;
     }
