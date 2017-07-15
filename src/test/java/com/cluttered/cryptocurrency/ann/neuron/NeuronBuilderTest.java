@@ -10,6 +10,7 @@ import java.util.Collections;
 import java.util.List;
 
 import static com.cluttered.cryptocurrency.ann.MathConstants.ONE;
+import static com.cluttered.cryptocurrency.ann.MathConstants.ZERO;
 import static com.cluttered.cryptocurrency.ann.activation.Activation.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -26,7 +27,7 @@ public class NeuronBuilderTest {
         final List<BigFloat> privateWeights = Deencapsulation.getField(neuronBuilder, "weights");
         final Activation privateActivation = Deencapsulation.getField(neuronBuilder, "activation");
 
-        assertThat(privateBias).isEqualTo(ONE);
+        assertThat(privateBias).isEqualTo(ZERO);
         assertThat(privateWeights).isEqualTo(Collections.singletonList(ONE));
         assertThat(privateActivation).isEqualTo(LINEAR);
     }
