@@ -64,7 +64,7 @@ public class NeuronTest {
     @Test
     public void testFire(@Mocked final List<BigFloat> inputs,
                          @Mocked final BigFloat dotProduct,
-                         @Mocked final BigFloat subtraction,
+                         @Mocked final BigFloat addition,
                          @Mocked final BigFloat expected) {
 
         new MockUp<Neuron>() {
@@ -77,8 +77,8 @@ public class NeuronTest {
         };
 
         new Expectations() {{
-            dotProduct.subtract(bias); times = 1; result = subtraction;
-            activation.evaluate(subtraction); times = 1; result = expected;
+            dotProduct.add(bias); times = 1; result = addition;
+            activation.evaluate(addition); times = 1; result = expected;
         }};
 
         final BigFloat result = neuron.fire(inputs);

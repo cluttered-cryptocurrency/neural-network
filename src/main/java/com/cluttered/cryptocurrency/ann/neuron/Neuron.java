@@ -32,7 +32,7 @@ public class Neuron {
      * @return The output of this {@code Neuron}.
      */
     public BigFloat fire(final List<BigFloat> inputs) {
-        final BigFloat biasDotProduct = dotProductWithWeights(inputs).subtract(bias);
+        final BigFloat biasDotProduct = dotProductWithWeights(inputs).add(bias);
         return activation.evaluate(biasDotProduct);
     }
 
