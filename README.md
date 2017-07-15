@@ -11,7 +11,7 @@
 
 ## XOR Example
 
-[XOR Example Source](src/test/integration/XorTest.java)
+**[XOR Example Source](https://github.com/cluttered-cryptocurrency/neural-network/blob/master/src/test/java/integration/XorTest.java)**
 
 |   P   |   Q   | P&oplus;Q |
 | :---: | :---: | :-------: |
