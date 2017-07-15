@@ -13,15 +13,11 @@
 
 [XOR Example Source](src/test/integration/XorTest.java)
 
-**Diagram**
-
-![XOR Diagram](https://raw.githubusercontent.com/cluttered-cryptocurrency/neural-network/master/xor-neural-network.png)
-
-**Logic Table**
-
 |   P   |   Q   | P&oplus;Q |
 | :---: | :---: | :-------: |
 |   0   |   0   |     0     |
 |   1   |   0   |     1     |
 |   0   |   1   |     1     |
 |   1   |   1   |     0     |
+
+![XOR Diagram](https://raw.githubusercontent.com/cluttered-cryptocurrency/neural-network/master/xor-neural-network.png)
