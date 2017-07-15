@@ -19,6 +19,7 @@ public class Layer {
 
     public List<BigFloat> fire(final List<BigFloat> inputs) {
         // TODO: parallelize and profile speed
+        // Stream was untestable by JMockit
         final List<BigFloat> results = new ArrayList<>(neurons.size());
         for(final Neuron neuron : neurons) {
             results.add(neuron.fire(inputs));
