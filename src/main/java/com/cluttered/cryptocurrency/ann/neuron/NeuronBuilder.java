@@ -1,15 +1,15 @@
 package com.cluttered.cryptocurrency.ann.neuron;
 
-import ch.obermuhlner.math.big.BigFloat;
 import com.cluttered.cryptocurrency.ann.activation.Activation;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static com.cluttered.cryptocurrency.ann.MathConstants.ONE;
-import static com.cluttered.cryptocurrency.ann.MathConstants.ZERO;
 import static com.cluttered.cryptocurrency.ann.activation.Activation.*;
+import static java.math.BigDecimal.ONE;
+import static java.math.BigDecimal.ZERO;
 
 /**
  * @author cluttered.code@gmail.com
@@ -17,8 +17,8 @@ import static com.cluttered.cryptocurrency.ann.activation.Activation.*;
 public class NeuronBuilder {
 
     // Defaults to InputNeuron
-    private BigFloat bias = ZERO;
-    private List<BigFloat> weights = Collections.singletonList(ONE);
+    private BigDecimal bias = ZERO;
+    private List<BigDecimal> weights = Collections.singletonList(ONE);
     private Activation activation = LINEAR;
 
     private NeuronBuilder() {
@@ -28,17 +28,17 @@ public class NeuronBuilder {
         return new NeuronBuilder();
     }
 
-    public NeuronBuilder bias(final BigFloat bias) {
+    public NeuronBuilder bias(final BigDecimal bias) {
         this.bias = bias;
         return this;
     }
 
-    public NeuronBuilder weights(final List<BigFloat> weights) {
+    public NeuronBuilder weights(final List<BigDecimal> weights) {
         this.weights = weights;
         return this;
     }
 
-    public NeuronBuilder weights(final BigFloat... weights) {
+    public NeuronBuilder weights(final BigDecimal... weights) {
         return weights(Arrays.asList(weights));
     }
 

@@ -1,7 +1,7 @@
 package com.cluttered.cryptocurrency.ann;
 
-import ch.obermuhlner.math.big.BigFloat;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -17,11 +17,11 @@ public class NeuralNetwork {
         this.layers = layers;
     }
 
-    public List<BigFloat> fire(final List<BigFloat> inputs) {
+    public List<BigDecimal> fire(final List<BigDecimal> inputs) {
         if (inputs.size() != inputSize)
             throw new IllegalArgumentException("NeuralNetwork accepts " + inputSize + " inputs but received " + inputs.size());
 
-        List<BigFloat> layerInputs = inputs;
+        List<BigDecimal> layerInputs = inputs;
         for (final Layer layer : layers) {
             layerInputs = layer.fire(layerInputs);
         }

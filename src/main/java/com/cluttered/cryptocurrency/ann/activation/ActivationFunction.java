@@ -1,11 +1,11 @@
 package com.cluttered.cryptocurrency.ann.activation;
 
-import ch.obermuhlner.math.big.BigFloat;
+import java.math.BigDecimal;
 
 /**
  * @author cluttered.code@gmail.com
  */
 @FunctionalInterface
 public interface ActivationFunction {
-    BigFloat evaluate(final BigFloat input);
+    BigDecimal evaluate(final BigDecimal input);
 }

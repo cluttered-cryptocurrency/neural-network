@@ -10,6 +10,7 @@ import mockit.integration.junit4.JMockit;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 
@@ -31,11 +32,11 @@ public class LayerTest {
     private List<Neuron> neurons;
 
     @Test
-    public void testFire(@Mocked final List<BigFloat> inputs,
+    public void testFire(@Mocked final List<BigDecimal> inputs,
                          @Mocked final Neuron neuron,
-                         @Mocked final BigFloat expected1,
-                         @Mocked final BigFloat expected2,
-                         @Mocked final BigFloat expected3) {
+                         @Mocked final BigDecimal expected1,
+                         @Mocked final BigDecimal expected2,
+                         @Mocked final BigDecimal expected3) {
         final List<Neuron> neurons = Arrays.asList(neuron, neuron, neuron);
         setField(layer, "neurons", neurons);
 
@@ -43,7 +44,7 @@ public class LayerTest {
             neuron.fire(inputs); times = 3; returns(expected1, expected2, expected3);
         }};
 
-        final List<BigFloat> result = layer.fire(inputs);
+        final List<BigDecimal> result = layer.fire(inputs);
 
         assertThat(result).containsExactly(
                 expected1,
