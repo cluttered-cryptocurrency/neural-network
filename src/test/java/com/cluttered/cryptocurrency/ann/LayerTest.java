@@ -1,6 +1,5 @@
 package com.cluttered.cryptocurrency.ann;
 
-import ch.obermuhlner.math.big.BigFloat;
 import com.cluttered.cryptocurrency.ann.neuron.Neuron;
 import mockit.Expectations;
 import mockit.Injectable;

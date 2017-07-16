@@ -21,7 +21,7 @@ public class Layer {
         // TODO: parallelize and profile speed
         // Stream was untestable by JMockit
         final List<BigDecimal> results = new ArrayList<>(neurons.size());
-        for(final Neuron neuron : neurons) {
+        for (final Neuron neuron : neurons) {
             results.add(neuron.fire(inputs));
         }
         return results;

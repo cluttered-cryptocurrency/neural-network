@@ -1,21 +1,17 @@
 package com.cluttered.cryptocurrency.ann.neuron;
 
-import ch.obermuhlner.math.big.BigFloat;
 import com.cluttered.cryptocurrency.ann.activation.Activation;
 import mockit.*;
 import mockit.integration.junit4.JMockit;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 import static com.cluttered.cryptocurrency.ann.activation.Activation.LINEAR;
-import static java.math.RoundingMode.HALF_UP;
 import static mockit.Deencapsulation.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
