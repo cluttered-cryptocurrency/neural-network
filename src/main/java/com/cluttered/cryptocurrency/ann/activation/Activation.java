@@ -16,7 +16,8 @@ public enum Activation implements ActivationFunction {
     LINEAR(input -> input),
     SIGMOID(input -> { // 1 / (1 + exp(-input))
         final BigDecimal exp = BigFloat.exp(BIG_FLOAT_CONTEXT.valueOf(input.negate())).toBigDecimal();
-        return ONE.divide(ONE.add(exp), PRECISION, HALF_UP);}),
+        return ONE.divide(ONE.add(exp), PRECISION, HALF_UP);
+    }),
     TAN_H(input -> BigFloat.tanh(BIG_FLOAT_CONTEXT.valueOf(input)).toBigDecimal());
 
     private final ActivationFunction activationFunction;
