@@ -63,7 +63,7 @@ public class NeuronTest {
         assertThat(result).isEqualTo(neuronBuilder);
     }
 
-    @Test @Ignore
+    @Test
     public void testFire(@Mocked final List<BigDecimal> inputs,
                          @Mocked final BigDecimal dotProduct,
                          @Mocked final BigDecimal addition,
