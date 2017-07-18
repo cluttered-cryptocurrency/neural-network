@@ -1,6 +1,8 @@
 package com.cluttered.cryptocurrency.ann.neuron;
 
 import com.cluttered.cryptocurrency.ann.activation.Activation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -12,6 +14,8 @@ import static java.math.BigDecimal.ZERO;
  * @author cluttered.code@gmail.com
  */
 public class Neuron {
+
+    private static final Logger LOG = LoggerFactory.getLogger(Neuron.class);
 
     private final BigDecimal bias;
     private final List<BigDecimal> weights;
@@ -34,8 +38,12 @@ public class Neuron {
      * @return The output of this {@code Neuron}.
      */
     public BigDecimal fire(final List<BigDecimal> inputs) {
+        final long startTimeMillis = System.currentTimeMillis();
+        LOG.debug("Fire Neuron");
         final BigDecimal biasDotProduct = dotProductWithWeights(inputs).add(bias);
-        return activation.evaluate(biasDotProduct);
+        final BigDecimal result = activation.evaluate(biasDotProduct);
+        LOG.trace("Neuron Time: {}ms", System.currentTimeMillis() - startTimeMillis);
+        return result;
     }
 
     private BigDecimal dotProductWithWeights(final List<BigDecimal> inputs) {

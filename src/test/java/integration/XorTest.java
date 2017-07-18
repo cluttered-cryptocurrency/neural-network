@@ -3,7 +3,6 @@ package integration;
 import com.cluttered.cryptocurrency.ann.Layer;
 import com.cluttered.cryptocurrency.ann.NeuralNetwork;
 import com.cluttered.cryptocurrency.ann.neuron.Neuron;
-import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
