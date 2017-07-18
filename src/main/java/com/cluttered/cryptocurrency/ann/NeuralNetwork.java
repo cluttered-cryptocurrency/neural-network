@@ -22,9 +22,10 @@ public class NeuralNetwork {
     }
 
     public List<Double> fire(final List<Double> inputs) {
-        final long startTimeMillis = System.currentTimeMillis();
+        final long startTimeNanos = System.nanoTime();
         LOG.info("########## Fire NeuralNetwork ##########");
         LOG.info("Inputs: {}", inputs);
+
         if (inputs.size() != inputSize)
             throw new IllegalArgumentException("NeuralNetwork accepts " + inputSize + " inputs but received " + inputs.size());
 
@@ -32,8 +33,9 @@ public class NeuralNetwork {
         for (final Layer layer : layers) {
             layerResults = layer.fire(layerResults);
         }
+
         LOG.info("Outputs: {}", layerResults);
-        LOG.info("NeuralNetwork Time: {}ms", System.currentTimeMillis() - startTimeMillis);
+        LOG.info("NeuralNetwork Time: {}nanos", System.nanoTime() - startTimeNanos);
         return layerResults;
     }
 }

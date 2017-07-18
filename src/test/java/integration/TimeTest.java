@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -18,6 +19,7 @@ public class TimeTest {
 
     private static Logger LOG = LoggerFactory.getLogger(TimeTest.class);
 
+    private static final int INPUT_SETS = 1000;
     private static final int INPUTS = 200;
     private static final int HIDDEN_NODES_1 = 100;
     private static final int HIDDEN_NODES_2 = 50;
@@ -70,15 +72,19 @@ public class TimeTest {
         LOG.info("building NeuralNetwork");
         final NeuralNetwork neuralNetwork = build();
         LOG.info("building Inputs");
-        final List<Double> inputs = IntStream.range(0, INPUTS)
-                .mapToDouble(i -> Math.random())
-                .boxed()
+        final List<List<Double>> inputSets = IntStream.range(0, INPUT_SETS)
+                .parallel()
+                .mapToObj(i -> IntStream.range(0, INPUTS)
+                        .mapToDouble(j -> Math.random())
+                        .boxed()
+                        .collect(Collectors.toList()))
                 .collect(Collectors.toList());
 
+        final Random random = new Random();
         final int oneYearOfFifteenMinuteIntervals = 4*24*7*52;
         final long startTimeMillis = System.currentTimeMillis();
         IntStream.range(0, oneYearOfFifteenMinuteIntervals)
-                .forEach(i -> neuralNetwork.fire(inputs));
+                .forEach(i -> neuralNetwork.fire(inputSets.get(random.nextInt(INPUT_SETS))));
         LOG.error("Test Time: {}ms", System.currentTimeMillis() - startTimeMillis);
     }
 }

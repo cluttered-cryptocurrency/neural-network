@@ -21,13 +21,15 @@ public class Layer {
     }
 
     public List<Double> fire(final List<Double> inputs) {
-        final long startTimeMillis = System.currentTimeMillis();
+        final long startTimeNanos = System.nanoTime();
         LOG.debug("Fire Layer");
         LOG.trace("Inputs: {}", inputs);
+
         final List<Double> results = neurons.parallelStream()
                 .map(neuron -> neuron.fire(inputs))
                 .collect(Collectors.toList());
-        LOG.trace("Layer Time: {}ms", System.currentTimeMillis() - startTimeMillis);
+
+        LOG.trace("Layer Time: {}nanos", System.nanoTime() - startTimeNanos);
         LOG.trace("====================");
         return results;
     }

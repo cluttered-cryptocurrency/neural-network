@@ -35,11 +35,11 @@ public class Neuron {
      * @return The output of this {@code Neuron}.
      */
     public double fire(final List<Double> inputs) {
-        final long startTimeMillis = System.currentTimeMillis();
+        final long startTimeNanos = System.nanoTime();
         LOG.debug("Fire Neuron");
         final double biasDotProduct = dotProductWithWeights(inputs) + bias;
         final double result = activation.evaluate(biasDotProduct);
-        LOG.trace("Neuron Time: {}ms", System.currentTimeMillis() - startTimeMillis);
+        LOG.trace("Neuron Time: {}nanos", System.nanoTime() - startTimeNanos);
         return result;
     }
 
