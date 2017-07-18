@@ -32,10 +32,12 @@ public class LayerTest {
 
     @Test
     public void testFire(@Mocked final List<BigDecimal> inputs,
-                         @Mocked final Neuron neuron,
-                         @Mocked final BigDecimal expected1,
-                         @Mocked final BigDecimal expected2,
-                         @Mocked final BigDecimal expected3) {
+                         @Mocked final Neuron neuron) {
+
+        final BigDecimal expected1 = BigDecimal.valueOf(1);
+        final BigDecimal expected2 = BigDecimal.valueOf(2);
+        final BigDecimal expected3 = BigDecimal.valueOf(3);
+
         final List<Neuron> neurons = Arrays.asList(neuron, neuron, neuron);
         setField(layer, "neurons", neurons);
 
