@@ -1,8 +1,8 @@
 package com.cluttered.cryptocurrency.ann;
 
-import ch.obermuhlner.math.big.BigFloat;
 import com.cluttered.cryptocurrency.ann.neuron.Neuron;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,11 +17,11 @@ public class Layer {
         this.neurons = neurons;
     }
 
-    public List<BigFloat> fire(final List<BigFloat> inputs) {
+    public List<BigDecimal> fire(final List<BigDecimal> inputs) {
         // TODO: parallelize and profile speed
         // Stream was untestable by JMockit
-        final List<BigFloat> results = new ArrayList<>(neurons.size());
-        for(final Neuron neuron : neurons) {
+        final List<BigDecimal> results = new ArrayList<>(neurons.size());
+        for (final Neuron neuron : neurons) {
             results.add(neuron.fire(inputs));
         }
         return results;
