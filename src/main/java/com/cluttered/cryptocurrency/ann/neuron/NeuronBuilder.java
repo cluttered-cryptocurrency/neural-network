@@ -5,18 +5,18 @@ import com.cluttered.cryptocurrency.ann.activation.Activation;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import static com.cluttered.cryptocurrency.ann.RandomGenerator.generateRandomBias;
+import static com.cluttered.cryptocurrency.ann.RandomGenerator.generateRandomIntBoundBy;
+import static com.cluttered.cryptocurrency.ann.RandomGenerator.generateRandomWeight;
 import static com.cluttered.cryptocurrency.ann.activation.Activation.*;
 
 /**
  * @author cluttered.code@gmail.com
  */
 public class NeuronBuilder {
-
-    private static final Random random = new Random();
 
     // Defaults to InputNeuron
     private double bias = 0;
@@ -30,12 +30,9 @@ public class NeuronBuilder {
         return new NeuronBuilder();
     }
 
-    public static Double boundedRandom() {
-        return random.nextDouble() * 2 - 1;
-    }
 
     public NeuronBuilder randomBias() {
-        bias = boundedRandom();
+        bias = generateRandomBias();
         return this;
     }
 
@@ -46,7 +43,7 @@ public class NeuronBuilder {
 
     public NeuronBuilder randomWeights(final int inputSize) {
         return weights(IntStream.range(0, inputSize)
-                .mapToDouble(i -> boundedRandom())
+                .mapToDouble(i -> generateRandomWeight())
                 .boxed()
                 .collect(Collectors.toList()));
     }
@@ -64,10 +61,11 @@ public class NeuronBuilder {
         return activation(Activation.random());
     }
 
-    public NeuronBuilder randomActivation(final Activation... eligible) {
-        if (eligible.length == 0)
+    public NeuronBuilder randomActivationOf(final Activation... eligibleActivations) {
+        if (eligibleActivations.length == 0)
             return randomActivation();
-        return activation(eligible[random.nextInt(eligible.length)]);
+        final int index = generateRandomIntBoundBy(eligibleActivations.length);
+        return activation(eligibleActivations[index]);
     }
 
     public NeuronBuilder linear() {
@@ -87,14 +85,18 @@ public class NeuronBuilder {
         return this;
     }
 
-    public Neuron random(final int inputSize, final Activation... eligible) {
+    public Neuron random(final int inputSize, final Activation... eligibleActivations) {
         randomBias();
         randomWeights(inputSize);
-        randomActivation(eligible);
+        randomActivationOf(eligibleActivations);
         return build();
     }
 
     public Neuron build() {
+        if(weights == null || weights.isEmpty())
+            throw new IllegalStateException("Neuron must contain at least one weight");
+        if(activation == null)
+            throw new IllegalStateException("Neuron must contain a valid Activation");
         return new Neuron(bias, weights, activation);
     }
 }

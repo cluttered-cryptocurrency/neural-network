@@ -1,5 +1,6 @@
 package com.cluttered.cryptocurrency.ann;
 
+import com.cluttered.cryptocurrency.ann.activation.Activation;
 import com.cluttered.cryptocurrency.ann.neuron.Neuron;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,8 +17,16 @@ public class Layer {
 
     private final List<Neuron> neurons;
 
-    public Layer(final List<Neuron> neurons) {
+    Layer(final List<Neuron> neurons) {
         this.neurons = neurons;
+    }
+
+    public static LayerBuilder builder() {
+        return LayerBuilder.create();
+    }
+
+    public static Layer random(final int inputSize, final int neuronCount, final Activation... eligible) {
+        return LayerBuilder.create().random(inputSize, neuronCount, eligible);
     }
 
     public List<Double> fire(final List<Double> inputs) {
