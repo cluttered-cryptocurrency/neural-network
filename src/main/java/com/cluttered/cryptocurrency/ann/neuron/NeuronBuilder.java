@@ -2,14 +2,11 @@ package com.cluttered.cryptocurrency.ann.neuron;
 
 import com.cluttered.cryptocurrency.ann.activation.Activation;
 
-import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 import static com.cluttered.cryptocurrency.ann.activation.Activation.*;
-import static java.math.BigDecimal.ONE;
-import static java.math.BigDecimal.ZERO;
 
 /**
  * @author cluttered.code@gmail.com
@@ -17,8 +14,8 @@ import static java.math.BigDecimal.ZERO;
 public class NeuronBuilder {
 
     // Defaults to InputNeuron
-    private BigDecimal bias = ZERO;
-    private List<BigDecimal> weights = Collections.singletonList(ONE);
+    private double bias = 0;
+    private List<Double> weights = Collections.singletonList(1.0);
     private Activation activation = LINEAR;
 
     private NeuronBuilder() {
@@ -28,17 +25,17 @@ public class NeuronBuilder {
         return new NeuronBuilder();
     }
 
-    public NeuronBuilder bias(final BigDecimal bias) {
+    public NeuronBuilder bias(final double bias) {
         this.bias = bias;
         return this;
     }
 
-    public NeuronBuilder weights(final List<BigDecimal> weights) {
+    public NeuronBuilder weights(final List<Double> weights) {
         this.weights = weights;
         return this;
     }
 
-    public NeuronBuilder weights(final BigDecimal... weights) {
+    public NeuronBuilder weights(final Double... weights) {
         return weights(Arrays.asList(weights));
     }
 
