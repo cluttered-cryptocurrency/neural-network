@@ -16,9 +16,13 @@ public class NeuralNetwork {
     private final Integer inputSize;
     private final List<Layer> layers;
 
-    public NeuralNetwork(final Integer inputSize, final List<Layer> layers) {
+    NeuralNetwork(final Integer inputSize, final List<Layer> layers) {
         this.inputSize = inputSize;
         this.layers = layers;
+    }
+
+    public static NeuralNetworkBuilder builder(final int inputSize) {
+        return NeuralNetworkBuilder.create(inputSize);
     }
 
     public List<Double> fire(final List<Double> inputs) {

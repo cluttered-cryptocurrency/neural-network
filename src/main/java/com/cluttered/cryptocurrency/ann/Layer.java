@@ -42,4 +42,8 @@ public class Layer {
         LOG.trace("====================");
         return results;
     }
+
+    public int size() {
+        return neurons.size();
+    }
 }

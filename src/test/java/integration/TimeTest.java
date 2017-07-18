@@ -1,18 +1,15 @@
 package integration;
 
-import com.cluttered.cryptocurrency.ann.Layer;
 import com.cluttered.cryptocurrency.ann.NeuralNetwork;
 import com.cluttered.cryptocurrency.ann.RandomGenerator;
-import com.cluttered.cryptocurrency.ann.neuron.Neuron;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import static com.cluttered.cryptocurrency.ann.activation.Activation.SIGMOID;
 import static com.cluttered.cryptocurrency.ann.activation.Activation.TAN_H;
 
 /**
@@ -23,23 +20,20 @@ public class TimeTest {
     private static Logger LOG = LoggerFactory.getLogger(TimeTest.class);
 
     private static final int INPUT_SETS = 1000;
+    
     private static final int INPUTS = 200;
-    private static final int HIDDEN_NEURONS_1 = 100;
-    private static final int HIDDEN_NEURONS_2 = 50;
+    private static final int HIDDEN_1 = 100;
+    private static final int HIDDEN_2 = 50;
     private static final int OUTPUTS = 2;
 
-    public static NeuralNetwork build() {
-        final Layer hiddenLayer1 = Layer.random(INPUTS, HIDDEN_NEURONS_1);
-        final Layer hiddenLayer2 = Layer.random(HIDDEN_NEURONS_1, HIDDEN_NEURONS_2);
-        final Layer outputLayer = Layer.random(HIDDEN_NEURONS_2, OUTPUTS, TAN_H);
-
-        return new NeuralNetwork(INPUTS, Arrays.asList(hiddenLayer1, hiddenLayer2, outputLayer));
-    }
-
     public static void main(final String[] args) {
-        LOG.info("building NeuralNetwork");
-        final NeuralNetwork neuralNetwork = build();
-        LOG.info("building Inputs");
+        LOG.error("Building NeuralNetwork {} -> {} -> {} -> {} ->", INPUTS, HIDDEN_1, HIDDEN_2, OUTPUTS);
+        final NeuralNetwork neuralNetwork = NeuralNetwork.builder(INPUTS)
+                .addLayer(HIDDEN_1, TAN_H)
+                .addLayer(HIDDEN_2, TAN_H)
+                .addOutputLayer(OUTPUTS, TAN_H);
+
+        LOG.error("Building Input Sets");
         final List<List<Double>> inputSets = IntStream.range(0, INPUT_SETS)
                 .parallel()
                 .mapToObj(i -> IntStream.range(0, INPUTS)
@@ -48,6 +42,7 @@ public class TimeTest {
                         .collect(Collectors.toList()))
                 .collect(Collectors.toList());
 
+        LOG.error("Testing...");
         final int oneYearOfFifteenMinuteIntervals = 4 * 24 * 7 * 52;
         final long startTimeMillis = System.currentTimeMillis();
         IntStream.range(0, oneYearOfFifteenMinuteIntervals)
