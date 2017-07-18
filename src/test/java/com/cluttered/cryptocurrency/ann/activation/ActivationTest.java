@@ -25,21 +25,23 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ActivationTest {
 
     @Test
-    public void testLinearActivation(@Mocked final BigDecimal input) {
+    public void testLinearActivation() {
+        final BigDecimal input = BigDecimal.ONE;
         final BigDecimal result = LINEAR.evaluate(input);
         assertThat(result).isEqualTo(input);
     }
 
     @Test
-    public void testSigmoidActivation(@Mocked final BigDecimal input,
-                                      @Mocked final BigDecimal negative,
-                                      @Mocked final BigFloat bigFloatNegative,
-                                      @Mocked final BigFloat bigFloatExponent,
-                                      @Mocked final BigDecimal exponent,
-                                      @Mocked final BigDecimal addition,
-                                      @Mocked final BigDecimal expected) {
+    public void testSigmoidActivation(@Mocked final BigFloat bigFloatNegative,
+                                      @Mocked final BigFloat bigFloatExponent) {
 
-        new Expectations(BIG_FLOAT_CONTEXT) {{
+        final BigDecimal input = BigDecimal.valueOf(1);
+        final BigDecimal negative = BigDecimal.valueOf(2);
+        final BigDecimal exponent = BigDecimal.valueOf(3);
+        final BigDecimal addition = BigDecimal.valueOf(4);
+        final BigDecimal expected = BigDecimal.valueOf(5);
+
+        new Expectations(BIG_FLOAT_CONTEXT, BigDecimal.class) {{
             input.negate(); times = 1; result = negative;
             BIG_FLOAT_CONTEXT.valueOf(negative); times = 1; result = bigFloatNegative;
             BigFloat.exp(bigFloatNegative); times = 1; result = bigFloatExponent;
@@ -53,10 +55,11 @@ public class ActivationTest {
     }
 
     @Test
-    public void testHyperbolicTangentActivation(@Mocked final BigDecimal input,
-                                                @Mocked final BigFloat bigFloatInput,
-                                                @Mocked final BigFloat hyperbolicTangent,
-                                                @Mocked final BigDecimal expected) {
+    public void testHyperbolicTangentActivation(@Mocked final BigFloat bigFloatInput,
+                                                @Mocked final BigFloat hyperbolicTangent) {
+        final BigDecimal input = BigDecimal.valueOf(1);
+        final BigDecimal expected = BigDecimal.valueOf(2);
+
         new Expectations(BIG_FLOAT_CONTEXT) {{
             BIG_FLOAT_CONTEXT.valueOf(input); times = 1; result = bigFloatInput;
             BigFloat.tanh(bigFloatInput); times = 1; result = hyperbolicTangent;
