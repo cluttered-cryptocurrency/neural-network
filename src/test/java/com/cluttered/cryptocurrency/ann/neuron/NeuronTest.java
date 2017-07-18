@@ -1,14 +1,16 @@
 package com.cluttered.cryptocurrency.ann.neuron;
 
 import com.cluttered.cryptocurrency.ann.activation.Activation;
-import mockit.*;
+import mockit.Expectations;
+import mockit.Injectable;
+import mockit.Mocked;
+import mockit.Tested;
 import mockit.integration.junit4.JMockit;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import static com.cluttered.cryptocurrency.ann.activation.Activation.LINEAR;
@@ -59,30 +61,30 @@ public class NeuronTest {
         assertThat(result).isEqualTo(neuronBuilder);
     }
 
-    @Test
-    public void testFire(@Mocked final List<BigDecimal> inputs,
-                         @Mocked final BigDecimal dotProduct,
-                         @Mocked final BigDecimal addition,
-                         @Mocked final BigDecimal expected) {
-
-        new MockUp<Neuron>() {
-            @Mock(invocations = 1)
-            @SuppressWarnings("unused")
-            private BigDecimal dotProductWithWeights(final List<BigDecimal> mockInputs) {
-                assertThat(mockInputs).isEqualTo(inputs);
-                return dotProduct;
-            }
-        };
-
-        new Expectations() {{
-            dotProduct.add(bias); times = 1; result = addition;
-            activation.evaluate(addition); times = 1; result = expected;
-        }};
-
-        final BigDecimal result = neuron.fire(inputs);
-
-        assertThat(result).isEqualTo(expected);
-    }
+//    @Test
+//    public void testFire(@Mocked final List<BigDecimal> inputs,
+//                         @Mocked final BigDecimal dotProduct,
+//                         @Mocked final BigDecimal addition,
+//                         @Mocked final BigDecimal expected) {
+//
+//        new MockUp<Neuron>() {
+//            @Mock(invocations = 1)
+//            @SuppressWarnings("unused")
+//            private BigDecimal dotProductWithWeights(final List<BigDecimal> mockInputs) {
+//                assertThat(mockInputs).isEqualTo(inputs);
+//                return dotProduct;
+//            }
+//        };
+//
+//        new Expectations() {{
+//            dotProduct.add(bias); times = 1; result = addition;
+//            activation.evaluate(addition); times = 1; result = expected;
+//        }};
+//
+//        final BigDecimal result = neuron.fire(inputs);
+//
+//        assertThat(result).isEqualTo(expected);
+//    }
 
     @Test
     public void testDotProductWithWeights() {
@@ -106,12 +108,12 @@ public class NeuronTest {
         assertThat(result).isEqualByComparingTo(expected);
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void testDotProductWithWeights_SizeDiff(@Mocked final BigDecimal bigFloat) {
-        final List<BigDecimal> weights = Collections.singletonList(bigFloat);
-        final Neuron neuron = Neuron.builder().weights(weights).build();
-
-        final List<BigDecimal> inputs = Arrays.asList(bigFloat, bigFloat, bigFloat);
-        invoke(neuron, "dotProductWithWeights", inputs);
-    }
+//    @Test(expected = IllegalArgumentException.class)
+//    public void testDotProductWithWeights_SizeDiff(@Mocked final BigDecimal bigFloat) {
+//        final List<BigDecimal> weights = Collections.singletonList(bigFloat);
+//        final Neuron neuron = Neuron.builder().weights(weights).build();
+//
+//        final List<BigDecimal> inputs = Arrays.asList(bigFloat, bigFloat, bigFloat);
+//        invoke(neuron, "dotProductWithWeights", inputs);
+//    }
 }

@@ -14,22 +14,22 @@ public class NeuralNetwork {
 
     private static final Logger LOG = LoggerFactory.getLogger(NeuralNetwork.class);
 
-    private final Long inputSize;
+    private final int inputSize;
     private final List<Layer> layers;
 
-    public NeuralNetwork(final Long inputSize, final List<Layer> layers) {
+    public NeuralNetwork(final int inputSize, final List<Layer> layers) {
         this.inputSize = inputSize;
         this.layers = layers;
     }
 
-    public List<BigDecimal> fire(final List<BigDecimal> inputs) {
+    public List<Double> fire(final List<Double> inputs) {
         final long startTimeMillis = System.currentTimeMillis();
         LOG.info("########## Fire NeuralNetwork ##########");
         LOG.info("Inputs: {}", inputs);
         if (inputs.size() != inputSize)
             throw new IllegalArgumentException("NeuralNetwork accepts " + inputSize + " inputs but received " + inputs.size());
 
-        List<BigDecimal> layerResults = inputs;
+        List<Double> layerResults = inputs;
         for (final Layer layer : layers) {
             layerResults = layer.fire(layerResults);
         }
