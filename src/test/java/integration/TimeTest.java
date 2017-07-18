@@ -3,6 +3,7 @@ package integration;
 import com.cluttered.cryptocurrency.ann.Layer;
 import com.cluttered.cryptocurrency.ann.NeuralNetwork;
 import com.cluttered.cryptocurrency.ann.neuron.Neuron;
+import com.cluttered.cryptocurrency.ann.neuron.NeuronBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,42 +28,18 @@ public class TimeTest {
 
     public static NeuralNetwork build() {
         final List<Neuron> hiddenNeurons1 = IntStream.range(0, HIDDEN_NODES_1)
-                .mapToObj(i -> {
-                    final List<Double> weights = IntStream.range(0, INPUTS)
-                            .mapToDouble(j -> Math.random())
-                            .boxed()
-                            .collect(Collectors.toList());
-                    return Neuron.builder()
-                            .weights(weights)
-                            .tanH()
-                            .build();
-                }).collect(Collectors.toList());
+                .mapToObj(i -> Neuron.random(INPUTS))
+                .collect(Collectors.toList());
         final Layer hiddenLayer1 = new Layer(hiddenNeurons1);
 
         final List<Neuron> hiddenNeurons2 = IntStream.range(0, HIDDEN_NODES_2)
-                .mapToObj(i -> {
-                    final List<Double> weights = IntStream.range(0, HIDDEN_NODES_1)
-                            .mapToDouble(j -> Math.random())
-                            .boxed()
-                            .collect(Collectors.toList());
-                    return Neuron.builder()
-                            .weights(weights)
-                            .tanH()
-                            .build();
-                }).collect(Collectors.toList());
+                .mapToObj(i -> Neuron.random(HIDDEN_NODES_1))
+                .collect(Collectors.toList());
         final Layer hiddenLayer2 = new Layer(hiddenNeurons2);
 
         final List<Neuron> outputNeurons = IntStream.range(0, OUTPUTS)
-                .mapToObj(i -> {
-                    final List<Double> weights = IntStream.range(0, HIDDEN_NODES_2)
-                            .mapToDouble(j -> Math.random())
-                            .boxed()
-                            .collect(Collectors.toList());
-                    return Neuron.builder()
-                            .weights(weights)
-                            .tanH()
-                            .build();
-                }).collect(Collectors.toList());
+                .mapToObj(i -> Neuron.random(HIDDEN_NODES_2))
+                .collect(Collectors.toList());
         final Layer outputLayer = new Layer(outputNeurons);
 
         return new NeuralNetwork(INPUTS, Arrays.asList(hiddenLayer1, hiddenLayer2, outputLayer));
@@ -81,7 +58,7 @@ public class TimeTest {
                 .collect(Collectors.toList());
 
         final Random random = new Random();
-        final int oneYearOfFifteenMinuteIntervals = 4*24*7*52;
+        final int oneYearOfFifteenMinuteIntervals = 4 * 24 * 7 * 52;
         final long startTimeMillis = System.currentTimeMillis();
         IntStream.range(0, oneYearOfFifteenMinuteIntervals)
                 .forEach(i -> neuralNetwork.fire(inputSets.get(random.nextInt(INPUT_SETS))));

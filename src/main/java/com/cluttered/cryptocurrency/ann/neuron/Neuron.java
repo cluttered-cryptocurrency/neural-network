@@ -28,6 +28,10 @@ public class Neuron {
         return NeuronBuilder.create();
     }
 
+    public static Neuron random(final int inputSize, final Activation... eligible) {
+        return NeuronBuilder.create().random(inputSize, eligible);
+    }
+
     /**
      * Fire with {@code Neuron} with the specified {@code input}. The output of this {@code Neuron} is returned.
      *
