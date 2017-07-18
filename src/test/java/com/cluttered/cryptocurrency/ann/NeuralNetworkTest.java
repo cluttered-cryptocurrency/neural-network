@@ -1,11 +1,19 @@
 package com.cluttered.cryptocurrency.ann;
 
+import mockit.Expectations;
 import mockit.Injectable;
+import mockit.Mocked;
 import mockit.Tested;
 import mockit.integration.junit4.JMockit;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+
+import static mockit.Deencapsulation.setField;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author cluttered.code@gmail.com
@@ -19,42 +27,36 @@ public class NeuralNetworkTest {
 
     @Injectable
     @SuppressWarnings("unused")
-    private Long inputSize;
+    private final Integer inputSize = 1;
 
     @Injectable
     @SuppressWarnings("unused")
     private List<Layer> layers;
 
-//    @Test
-//    public void testFire(@Mocked List<BigDecimal> inputs,
-//                         @Mocked Layer layer,
-//                         @Mocked BigDecimal expected1,
-//                         @Mocked BigDecimal expected2,
-//                         @Mocked BigDecimal expected3) {
-//
-//        final List<Layer> layers = Arrays.asList(layer, layer, layer);
-//        setField(neuralNetwork, "layers", layers);
-//
-//        final List<BigDecimal> expectedList1 = Collections.singletonList(expected1);
-//        final List<BigDecimal> expectedList2 = Collections.singletonList(expected2);
-//        final List<BigDecimal> expectedList3 = Collections.singletonList(expected3);
-//
-//        new Expectations() {{
-//            layer.fire(inputs); times = 1; result = expectedList1;
-//            layer.fire(expectedList1); times = 1; result = expectedList2;
-//            layer.fire(expectedList2); times = 1; result = expectedList3;
-//        }};
-//
-//        final List<BigDecimal> result = neuralNetwork.fire(inputs);
-//
-//        assertThat(result).isEqualTo(expectedList3);
-//    }
-//
-//    @Test(expected = IllegalArgumentException.class)
-//    public void testFire_WrongSize(@Mocked final List<BigDecimal> inputs) {
-//        final Long inputSize = 32L;
-//        setField(neuralNetwork, "inputSize", inputSize);
-//
-//        neuralNetwork.fire(inputs);
-//    }
+    @Test
+    public void testFire(@Mocked Layer layer,
+                         @Mocked List<Double> expected1,
+                         @Mocked List<Double> expected2,
+                         @Mocked List<Double> expected3) {
+
+        final List<Double> inputs = Collections.singletonList(42.0);
+        final List<Layer> layers = Arrays.asList(layer, layer, layer);
+        setField(neuralNetwork, "layers", layers);
+
+        new Expectations() {{
+            layer.fire(inputs); times = 1; result = expected1;
+            layer.fire(expected1); times = 1; result = expected2;
+            layer.fire(expected2); times = 1; result = expected3;
+        }};
+
+        final List<Double> result = neuralNetwork.fire(inputs);
+
+        assertThat(result).isEqualTo(expected3);
+
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testFire_WrongSize(@Mocked final List<Double> inputs) {
+        neuralNetwork.fire(inputs);
+    }
 }

@@ -19,9 +19,8 @@ public class TimeTest {
     private static Logger LOG = LoggerFactory.getLogger(TimeTest.class);
 
     private static final int INPUTS = 200;
-    private static final int HIDDEN_NODES_1 = 150;
-    private static final int HIDDEN_NODES_2 = 75;
-    private static final int HIDDEN_NODES_3 = 25;
+    private static final int HIDDEN_NODES_1 = 100;
+    private static final int HIDDEN_NODES_2 = 50;
     private static final int OUTPUTS = 2;
 
     public static NeuralNetwork build() {
@@ -51,7 +50,7 @@ public class TimeTest {
                 }).collect(Collectors.toList());
         final Layer hiddenLayer2 = new Layer(hiddenNeurons2);
 
-        final List<Neuron> hiddenNeurons3 = IntStream.range(0, HIDDEN_NODES_3)
+        final List<Neuron> outputNeurons = IntStream.range(0, OUTPUTS)
                 .mapToObj(i -> {
                     final List<Double> weights = IntStream.range(0, HIDDEN_NODES_2)
                             .mapToDouble(j -> Math.random())
@@ -62,22 +61,9 @@ public class TimeTest {
                             .tanH()
                             .build();
                 }).collect(Collectors.toList());
-        final Layer hiddenLayer3 = new Layer(hiddenNeurons3);
-
-        final List<Neuron> outputNeurons = IntStream.range(0, OUTPUTS)
-                .mapToObj(i -> {
-                    final List<Double> weights = IntStream.range(0, HIDDEN_NODES_3)
-                            .mapToDouble(j -> Math.random())
-                            .boxed()
-                            .collect(Collectors.toList());
-                    return Neuron.builder()
-                            .weights(weights)
-                            .tanH()
-                            .build();
-                }).collect(Collectors.toList());
         final Layer outputLayer = new Layer(outputNeurons);
 
-        return new NeuralNetwork(INPUTS, Arrays.asList(hiddenLayer1, hiddenLayer2, hiddenLayer3, outputLayer));
+        return new NeuralNetwork(INPUTS, Arrays.asList(hiddenLayer1, hiddenLayer2, outputLayer));
     }
 
     public static void main(final String[] args) {
@@ -93,6 +79,6 @@ public class TimeTest {
         final long startTimeMillis = System.currentTimeMillis();
         IntStream.range(0, oneYearOfFifteenMinuteIntervals)
                 .forEach(i -> neuralNetwork.fire(inputs));
-        LOG.info("Test Time: {}ms", System.currentTimeMillis() - startTimeMillis);
+        LOG.error("Test Time: {}ms", System.currentTimeMillis() - startTimeMillis);
     }
 }

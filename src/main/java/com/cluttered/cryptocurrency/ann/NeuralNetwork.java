@@ -4,7 +4,6 @@ package com.cluttered.cryptocurrency.ann;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -14,10 +13,10 @@ public class NeuralNetwork {
 
     private static final Logger LOG = LoggerFactory.getLogger(NeuralNetwork.class);
 
-    private final int inputSize;
+    private final Integer inputSize;
     private final List<Layer> layers;
 
-    public NeuralNetwork(final int inputSize, final List<Layer> layers) {
+    public NeuralNetwork(final Integer inputSize, final List<Layer> layers) {
         this.inputSize = inputSize;
         this.layers = layers;
     }

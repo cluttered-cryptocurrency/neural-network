@@ -15,51 +15,33 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(JMockit.class)
 public class ActivationTest {
 
-//    @Test
-//    public void testLinearActivation() {
-//        final BigDecimal input = BigDecimal.ONE;
-//        final BigDecimal result = LINEAR.evaluate(input);
-//        assertThat(result).isEqualTo(input);
-//    }
-//
-//    @Test
-//    public void testSigmoidActivation(@Mocked final BigFloat bigFloatNegative,
-//                                      @Mocked final BigFloat bigFloatExponent) {
-//
-//        final BigDecimal input = BigDecimal.valueOf(1);
-//        final BigDecimal negative = BigDecimal.valueOf(2);
-//        final BigDecimal exponent = BigDecimal.valueOf(3);
-//        final BigDecimal addition = BigDecimal.valueOf(4);
-//        final BigDecimal expected = BigDecimal.valueOf(5);
-//
-//        new Expectations(BIG_FLOAT_CONTEXT, BigDecimal.class) {{
-//            input.negate(); times = 1; result = negative;
-//            BIG_FLOAT_CONTEXT.valueOf(negative); times = 1; result = bigFloatNegative;
-//            BigFloat.exp(bigFloatNegative); times = 1; result = bigFloatExponent;
-//            bigFloatExponent.toBigDecimal(); times = 1; result = exponent;
-//            ONE.add(exponent); times = 1; result = addition;
-//            ONE.divide(addition, PRECISION, HALF_UP); times = 1; result = expected;
-//        }};
-//
-//        final BigDecimal result = SIGMOID.evaluate(input);
-//        assertThat(result).isEqualTo(expected);
-//    }
-//
-//    @Test
-//    public void testHyperbolicTangentActivation(@Mocked final BigFloat bigFloatInput,
-//                                                @Mocked final BigFloat hyperbolicTangent) {
-//        final BigDecimal input = BigDecimal.valueOf(1);
-//        final BigDecimal expected = BigDecimal.valueOf(2);
-//
-//        new Expectations(BIG_FLOAT_CONTEXT) {{
-//            BIG_FLOAT_CONTEXT.valueOf(input); times = 1; result = bigFloatInput;
-//            BigFloat.tanh(bigFloatInput); times = 1; result = hyperbolicTangent;
-//            hyperbolicTangent.toBigDecimal(); times = 1; result = expected;
-//        }};
-//
-//        final BigDecimal result = TAN_H.evaluate(input);
-//        assertThat(result).isEqualTo(expected);
-//    }
+    @Test
+    public void testLinearActivation() {
+        final double input = 42;
+
+        final double result = LINEAR.evaluate(input);
+
+        assertThat(result).isEqualTo(input);
+    }
+
+    @Test
+    public void testSigmoidActivation() {
+        final double input = 1.23456789;
+        final double expected = 0.7746170617399427;
+
+        final double result = SIGMOID.evaluate(input);
+
+        assertThat(result).isEqualTo(expected);
+    }
+
+    @Test
+    public void testHyperbolicTangentActivation() {
+        final double input = 1.23456789;
+
+        final double result = TAN_H.evaluate(input);
+
+        assertThat(result).isEqualTo(Math.tanh(input));
+    }
 
     @Test
     public void testRandomLinearLow() {

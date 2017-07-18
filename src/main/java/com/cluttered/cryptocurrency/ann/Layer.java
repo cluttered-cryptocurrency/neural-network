@@ -4,10 +4,7 @@ import com.cluttered.cryptocurrency.ann.neuron.Neuron;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -27,13 +24,9 @@ public class Layer {
         final long startTimeMillis = System.currentTimeMillis();
         LOG.debug("Fire Layer");
         LOG.trace("Inputs: {}", inputs);
-        // TODO: parallelize and profile speed
-        // Stream was untestable by JMockit
-
         final List<Double> results = neurons.parallelStream()
                 .map(neuron -> neuron.fire(inputs))
                 .collect(Collectors.toList());
-
         LOG.trace("Layer Time: {}ms", System.currentTimeMillis() - startTimeMillis);
         LOG.trace("====================");
         return results;

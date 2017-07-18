@@ -14,11 +14,11 @@ public class Neuron {
 
     private static final Logger LOG = LoggerFactory.getLogger(Neuron.class);
 
-    private final double bias;
+    private final Double bias;
     private final List<Double> weights;
     private final Activation activation;
 
-    Neuron(final double bias, final List<Double> weights, final Activation activation) {
+    Neuron(final Double bias, final List<Double> weights, final Activation activation) {
         this.bias = bias;
         this.weights = weights;
         this.activation = activation;

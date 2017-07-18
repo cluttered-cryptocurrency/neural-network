@@ -5,5 +5,5 @@ package com.cluttered.cryptocurrency.ann.activation;
  */
 @FunctionalInterface
 public interface ActivationFunction {
-    double evaluate(final double input);
+    Double evaluate(final Double input);
 }
