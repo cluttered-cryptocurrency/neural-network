@@ -11,8 +11,6 @@
 
 ## XOR Example
 
-**[XOR Example Source](https://github.com/cluttered-cryptocurrency/neural-network/blob/master/src/test/java/integration/XorTest.java)**
-
 |   P   |   Q   | P&oplus;Q |
 | :---: | :---: | :-------: |
 |   0   |   0   |     0     |
@@ -21,3 +19,29 @@
 |   1   |   1   |     0     |
 
 ![XOR Diagram](https://raw.githubusercontent.com/cluttered-cryptocurrency/neural-network/master/xor-neural-network.png)
+
+**[XOR Example Source](https://github.com/cluttered-cryptocurrency/neural-network/blob/master/src/test/java/integration/XorTest.java)**
+
+```java
+int inputs = 2;
+NeuralNetwork.builder(inputs)
+            .addLayer(Layer.builder()
+                    .neurons(Neuron.builder()
+                                    .weights(60.0, 60.0)
+                                    .bias(-90)
+                                    .sigmoid()
+                                    .build(),
+                            Neuron.builder()
+                                    .weights(80.0, 80.0)
+                                    .bias(-40)
+                                    .sigmoid()
+                                    .build())
+                    .build())
+            .addOutputLayer(Layer.builder()
+                    .neurons(Neuron.builder()
+                            .sigmoid()
+                            .weights(-60.0, 60.0)
+                            .bias(-30)
+                            .build())
+                    .build());
+```
