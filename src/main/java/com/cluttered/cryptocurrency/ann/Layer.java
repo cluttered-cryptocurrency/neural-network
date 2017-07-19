@@ -8,6 +8,8 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.cluttered.cryptocurrency.ann.GsonConstant.GSON;
+
 /**
  * @author cluttered.code@gmail.com
  */
@@ -19,6 +21,10 @@ public class Layer {
 
     Layer(final List<Neuron> neurons) {
         this.neurons = neurons;
+    }
+
+    public static Layer fromJson(final String json) {
+        return GSON.fromJson(json, Layer.class);
     }
 
     public static LayerBuilder builder() {
@@ -45,5 +51,9 @@ public class Layer {
 
     public int size() {
         return neurons.size();
+    }
+
+    public String toJson() {
+        return GSON.toJson(this);
     }
 }

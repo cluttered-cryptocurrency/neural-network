@@ -6,6 +6,8 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
+import static com.cluttered.cryptocurrency.ann.GsonConstant.GSON;
+
 /**
  * @author cluttered.code@gmail.com
  */
@@ -19,6 +21,10 @@ public class NeuralNetwork {
     NeuralNetwork(final Integer inputSize, final List<Layer> layers) {
         this.inputSize = inputSize;
         this.layers = layers;
+    }
+
+    public static NeuralNetwork fromJson(final String json) {
+        return GSON.fromJson(json, NeuralNetwork.class);
     }
 
     public static NeuralNetworkBuilder builder(final int inputSize) {
@@ -41,5 +47,9 @@ public class NeuralNetwork {
         LOG.info("Outputs: {}", layerResults);
         LOG.info("NeuralNetwork Time: {}nanos", System.nanoTime() - startTimeNanos);
         return layerResults;
+    }
+
+    public String toJson() {
+        return GSON.toJson(this);
     }
 }

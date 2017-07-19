@@ -7,6 +7,8 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 import java.util.stream.IntStream;
 
+import static com.cluttered.cryptocurrency.ann.GsonConstant.GSON;
+
 /**
  * @author cluttered.code@gmail.com
  */
@@ -14,14 +16,18 @@ public class Neuron {
 
     private static final Logger LOG = LoggerFactory.getLogger(Neuron.class);
 
+    private final Activation activation;
     private final Double bias;
     private final List<Double> weights;
-    private final Activation activation;
 
     Neuron(final Double bias, final List<Double> weights, final Activation activation) {
         this.bias = bias;
         this.weights = weights;
         this.activation = activation;
+    }
+
+    public static Neuron fromJson(final String json) {
+        return GSON.fromJson(json, Neuron.class);
     }
 
     public static NeuronBuilder builder() {
@@ -54,5 +60,9 @@ public class Neuron {
         return IntStream.range(0, inputs.size())
                 .mapToDouble(i -> inputs.get(i) * weights.get(i))
                 .sum();
+    }
+
+    public String toJson() {
+        return GSON.toJson(this);
     }
 }
