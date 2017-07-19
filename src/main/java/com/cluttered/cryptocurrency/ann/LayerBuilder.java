@@ -21,9 +21,9 @@ public class LayerBuilder {
     }
 
     public LayerBuilder randomNeurons(final int inputSize, final int size, final Activation... eligibleActivations) {
-        if(inputSize < 1)
+        if (inputSize < 1)
             throw new IllegalArgumentException("inputSize must be greater than 0");
-        if(size < 1)
+        if (size < 1)
             throw new IllegalArgumentException("size must be greater than 0");
         return neurons(IntStream.range(0, size)
                 .mapToObj(i -> Neuron.random(inputSize, eligibleActivations))
@@ -45,7 +45,7 @@ public class LayerBuilder {
     }
 
     public Layer build() {
-        if(neurons == null || neurons.isEmpty())
+        if (neurons == null || neurons.isEmpty())
             throw new IllegalStateException("Layer must contain at least one Neuron");
         return new Layer(neurons);
     }

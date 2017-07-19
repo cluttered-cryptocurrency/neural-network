@@ -8,9 +8,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import static com.cluttered.cryptocurrency.ann.RandomGenerator.generateRandomBias;
-import static com.cluttered.cryptocurrency.ann.RandomGenerator.generateRandomIntBoundBy;
-import static com.cluttered.cryptocurrency.ann.RandomGenerator.generateRandomWeight;
+import static com.cluttered.cryptocurrency.ann.RandomGenerator.*;
 import static com.cluttered.cryptocurrency.ann.activation.Activation.*;
 
 /**
@@ -93,9 +91,9 @@ public class NeuronBuilder {
     }
 
     public Neuron build() {
-        if(weights == null || weights.isEmpty())
+        if (weights == null || weights.isEmpty())
             throw new IllegalStateException("Neuron must contain at least one weight");
-        if(activation == null)
+        if (activation == null)
             throw new IllegalStateException("Neuron must contain a valid Activation");
         return new Neuron(bias, weights, activation);
     }

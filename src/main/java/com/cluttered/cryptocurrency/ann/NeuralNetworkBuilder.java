@@ -20,7 +20,7 @@ public class NeuralNetworkBuilder {
     }
 
     public NeuralNetworkBuilder addLayer(final int size, final Activation... eligibleActivations) {
-        int inputs = !layers.isEmpty() ? layers.get(layers.size()-1).size() : inputSize;
+        int inputs = !layers.isEmpty() ? layers.get(layers.size() - 1).size() : inputSize;
         return addLayer(Layer.random(inputs, size, eligibleActivations));
     }
 
@@ -40,9 +40,9 @@ public class NeuralNetworkBuilder {
     }
 
     public NeuralNetwork build() {
-        if(inputSize < 1)
+        if (inputSize < 1)
             throw new IllegalStateException("NeuralNetwork must contain at least one input");
-        if(layers == null)
+        if (layers == null)
             layers = Collections.emptyList();
         return new NeuralNetwork(inputSize, layers);
     }
