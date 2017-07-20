@@ -1,9 +1,13 @@
 package com.cluttered.cryptocurrency.ann.neuron;
 
+import com.cluttered.cryptocurrency.ann.activation.Activation;
 import org.junit.Test;
 
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
+import static com.cluttered.cryptocurrency.ann.activation.Activation.SIGMOID;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -18,7 +22,9 @@ public class NeuronBuilderTest {
 
     @Test
     public void testRandom_NullEligibleActivations() {
-        final Neuron neuron = NeuronBuilder.random(32, null);
+        final Set<Activation> activations = new HashSet<>();
+        activations.add(SIGMOID);
+        final Neuron neuron = NeuronBuilder.random(32, activations);
         assertThat(neuron).isNotNull();
     }
 }
