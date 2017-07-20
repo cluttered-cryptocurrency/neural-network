@@ -1,7 +1,5 @@
 package com.cluttered.cryptocurrency.ann.activation;
 
-import mockit.Mock;
-import mockit.MockUp;
 import mockit.integration.junit4.JMockit;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -41,95 +39,5 @@ public class ActivationTest {
         final double result = TAN_H.evaluate(input);
 
         assertThat(result).isEqualTo(Math.tanh(input));
-    }
-
-    @Test
-    public void testRandomLinearLow() {
-        @SuppressWarnings("unused")
-        MockUp<Math> mockUp = new MockUp<Math>() {
-            @Mock
-            @SuppressWarnings("unused")
-            double random() {
-                return 0.0;
-            }
-        };
-
-        final Activation activation =  random();
-        assertThat(activation).isEqualTo(LINEAR);
-    }
-
-    @Test
-    public void testRandomLinearHigh() {
-        @SuppressWarnings("unused")
-        MockUp<Math> mockUp = new MockUp<Math>() {
-            @Mock
-            @SuppressWarnings("unused")
-            double random() {
-                return 0.33;
-            }
-        };
-
-        final Activation activation = random();
-        assertThat(activation).isEqualTo(LINEAR);
-    }
-
-    @Test
-    public void testRandomSigmoidLow() {
-        @SuppressWarnings("unused")
-        MockUp<Math> mockUp = new MockUp<Math>() {
-            @Mock
-            @SuppressWarnings("unused")
-            double random() {
-                return 0.34;
-            }
-        };
-
-        final Activation activation = random();
-        assertThat(activation).isEqualTo(SIGMOID);
-    }
-
-    @Test
-    public void testRandomSigmoidHigh() {
-        @SuppressWarnings("unused")
-        MockUp<Math> mockUp = new MockUp<Math>() {
-            @Mock
-            @SuppressWarnings("unused")
-            double random() {
-                return 0.66;
-            }
-        };
-
-        final Activation activation = random();
-        assertThat(activation).isEqualTo(SIGMOID);
-    }
-
-    @Test
-    public void testRandomHyperbolicTangentLow() {
-        @SuppressWarnings("unused")
-        MockUp<Math> mockUp = new MockUp<Math>() {
-            @Mock
-            @SuppressWarnings("unused")
-            double random() {
-                return 0.67;
-            }
-        };
-
-        final Activation activation = random();
-        assertThat(activation).isEqualTo(TAN_H);
-    }
-
-    @Test
-    public void testRandomHyperbolicTangentHigh() {
-        @SuppressWarnings("unused")
-        MockUp<Math> mockUp = new MockUp<Math>() {
-            @Mock
-            @SuppressWarnings("unused")
-            double random() {
-                return 0.99;
-            }
-        };
-
-        final Activation activation = random();
-        assertThat(activation).isEqualTo(TAN_H);
     }
 }

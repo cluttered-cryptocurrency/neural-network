@@ -17,8 +17,4 @@ public enum Activation implements ActivationFunction {
     public Double evaluate(final Double input) {
         return activationFunction.evaluate(input);
     }
-
-    public static Activation random() {
-        return values()[(int) (Math.random() * values().length)];
-    }
 }

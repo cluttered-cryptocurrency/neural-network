@@ -7,8 +7,6 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 import java.util.stream.IntStream;
 
-import static com.cluttered.cryptocurrency.ann.GsonConstant.GSON;
-
 /**
  * @author cluttered.code@gmail.com
  */
@@ -26,16 +24,8 @@ public class Neuron {
         this.activation = activation;
     }
 
-    public static Neuron fromJson(final String json) {
-        return GSON.fromJson(json, Neuron.class);
-    }
-
-    public static NeuronBuilder builder() {
-        return NeuronBuilder.create();
-    }
-
     public static Neuron random(final int inputSize, final Activation... eligible) {
-        return NeuronBuilder.create().random(inputSize, eligible);
+        return NeuronBuilder.random(inputSize, eligible);
     }
 
     /**
@@ -44,25 +34,21 @@ public class Neuron {
      * @param inputs The {@code list} of {@code Double} objects used to calculate the {@code Neuron} object's output.
      * @return The output of this {@code Neuron}.
      */
-    public double fire(final List<Double> inputs) {
+    public Double fire(final List<Double> inputs) {
         final long startTimeNanos = System.nanoTime();
         LOG.debug("Fire Neuron");
-        final double biasDotProduct = dotProductWithWeights(inputs) + bias;
-        final double result = activation.evaluate(biasDotProduct);
+        final Double biasDotProduct = dotProductWithWeights(inputs) + bias;
+        final Double result = activation.evaluate(biasDotProduct);
         LOG.trace("Neuron Time: {}nanos", System.nanoTime() - startTimeNanos);
         return result;
     }
 
-    private double dotProductWithWeights(final List<Double> inputs) {
+    private Double dotProductWithWeights(final List<Double> inputs) {
         if (inputs.size() != weights.size()) {
             throw new IllegalArgumentException("inputs (" + inputs.size() + ") and weights (" + weights.size() + ") must have the same number of elements");
         }
         return IntStream.range(0, inputs.size())
                 .mapToDouble(i -> inputs.get(i) * weights.get(i))
                 .sum();
-    }
-
-    public String toJson() {
-        return GSON.toJson(this);
     }
 }

@@ -1,12 +1,11 @@
 package com.cluttered.cryptocurrency.ann;
 
-
+import com.cluttered.cryptocurrency.ann.layer.Layer;
+import com.google.gson.Gson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
-
-import static com.cluttered.cryptocurrency.ann.GsonConstant.GSON;
 
 /**
  * @author cluttered.code@gmail.com
@@ -14,6 +13,7 @@ import static com.cluttered.cryptocurrency.ann.GsonConstant.GSON;
 public class NeuralNetwork {
 
     private static final Logger LOG = LoggerFactory.getLogger(NeuralNetwork.class);
+    private static final Gson GSON = new Gson();
 
     private final Integer inputSize;
     private final List<Layer> layers;

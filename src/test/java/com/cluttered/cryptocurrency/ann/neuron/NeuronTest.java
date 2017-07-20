@@ -38,16 +38,16 @@ public class NeuronTest {
     @SuppressWarnings("unused")
     private final Activation activation = LINEAR;
 
-    @Test
-    public void testBuilder(@Mocked final NeuronBuilder neuronBuilder) {
-        new Expectations() {{
-            NeuronBuilder.create(); times = 1; result = neuronBuilder;
-        }};
-
-        final NeuronBuilder result = Neuron.builder();
-
-        assertThat(result).isEqualTo(neuronBuilder);
-    }
+//    @Test
+//    public void testBuilder(@Mocked final NeuronBuilder neuronBuilder) {
+//        new Expectations() {{
+//            NeuronBuilder.create(); times = 1; result = neuronBuilder;
+//        }};
+//
+//        final NeuronBuilder result = Neuron.builder();
+//
+//        assertThat(result).isEqualTo(neuronBuilder);
+//    }
 
     @Test
     public void testFire(@Mocked final List<Double> inputs) {

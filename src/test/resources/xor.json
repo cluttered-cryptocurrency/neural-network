@@ -1,0 +1,26 @@
+{
+  "inputSize": 2,
+  "layers": [
+    {
+      "neurons": [
+        {
+          "activation": "SIGMOID",
+          "bias": -90,
+          "weights": [60, 60]
+        }, {
+          "activation": "SIGMOID",
+          "bias": -40,
+          "weights": [80, 80]
+        }
+      ]
+    }, {
+      "neurons": [
+        {
+          "activation": "SIGMOID",
+          "bias": -30,
+          "weights": [-60, 60]
+        }
+      ]
+    }
+  ]
+}

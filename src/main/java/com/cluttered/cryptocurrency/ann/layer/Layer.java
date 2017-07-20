@@ -1,4 +1,4 @@
-package com.cluttered.cryptocurrency.ann;
+package com.cluttered.cryptocurrency.ann.layer;
 
 import com.cluttered.cryptocurrency.ann.activation.Activation;
 import com.cluttered.cryptocurrency.ann.neuron.Neuron;
@@ -8,8 +8,6 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.cluttered.cryptocurrency.ann.GsonConstant.GSON;
-
 /**
  * @author cluttered.code@gmail.com
  */
@@ -17,22 +15,16 @@ public class Layer {
 
     private static final Logger LOG = LoggerFactory.getLogger(Layer.class);
 
+    private final Activation[] eligibleActivations;
     private final List<Neuron> neurons;
 
-    Layer(final List<Neuron> neurons) {
+    Layer(final Activation[] eligibleActivations, final List<Neuron> neurons) {
+        this.eligibleActivations = eligibleActivations;
         this.neurons = neurons;
     }
 
-    public static Layer fromJson(final String json) {
-        return GSON.fromJson(json, Layer.class);
-    }
-
-    public static LayerBuilder builder() {
-        return LayerBuilder.create();
-    }
-
-    public static Layer random(final int inputSize, final int neuronCount, final Activation... eligible) {
-        return LayerBuilder.create().random(inputSize, neuronCount, eligible);
+    public static Layer random(final int inputSize, final int size, final Activation... eligible) {
+        return LayerBuilder.random(inputSize, size, eligible);
     }
 
     public List<Double> fire(final List<Double> inputs) {
@@ -51,9 +43,5 @@ public class Layer {
 
     public int size() {
         return neurons.size();
-    }
-
-    public String toJson() {
-        return GSON.toJson(this);
     }
 }

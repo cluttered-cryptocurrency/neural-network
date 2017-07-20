@@ -1,11 +1,12 @@
 package integration;
 
-import com.cluttered.cryptocurrency.ann.Layer;
 import com.cluttered.cryptocurrency.ann.NeuralNetwork;
-import com.cluttered.cryptocurrency.ann.neuron.Neuron;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.List;
 
@@ -16,27 +17,13 @@ public class XorTest {
 
     private static final Logger LOG = LoggerFactory.getLogger(XorTest.class);
 
-    private static void xorTest() {
-    final NeuralNetwork xorNeuralNetwork = NeuralNetwork.builder(2)
-            .addLayer(Layer.builder()
-                    .neurons(Neuron.builder()
-                                    .weights(60.0, 60.0)
-                                    .bias(-90)
-                                    .sigmoid()
-                                    .build(),
-                            Neuron.builder()
-                                    .weights(80.0, 80.0)
-                                    .bias(-40)
-                                    .sigmoid()
-                                    .build())
-                    .build())
-            .addOutputLayer(Layer.builder()
-                    .neurons(Neuron.builder()
-                            .sigmoid()
-                            .weights(-60.0, 60.0)
-                            .bias(-30)
-                            .build())
-                    .build());
+    private static void xorTest() throws IOException {
+        final ClassLoader classLoader = ClassLoader.getSystemClassLoader();
+        final File file = new File(classLoader.getResource("xor.json").getFile());
+        final String xorJson = new String(Files.readAllBytes(file.toPath()));
+        LOG.info("Loading NeuralNetwork from json:\n{}", xorJson);
+
+        final NeuralNetwork xorNeuralNetwork = NeuralNetwork.fromJson(xorJson);
 
         // [0, 0] -> [0]
         final List<Double> inputs1 = Arrays.asList(0.0, 0.0);
@@ -67,7 +54,7 @@ public class XorTest {
         return Math.abs(result - expected) < tolerance;
     }
 
-    public static void main(final String[] args) {
+    public static void main(final String[] args) throws IOException {
         new XorTest().xorTest();
         LOG.info("XOR Test PASSED!");
     }
