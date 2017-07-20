@@ -1,4 +1,4 @@
-package com.cluttered.cryptocurrency.ann;
+package com.cluttered.cryptocurrency.ann.layer;
 
 import com.cluttered.cryptocurrency.ann.activation.Activation;
 import com.cluttered.cryptocurrency.ann.layer.Layer;
