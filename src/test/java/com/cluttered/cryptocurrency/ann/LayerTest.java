@@ -62,8 +62,8 @@ public class LayerTest {
     public void testSize() {
         final int size = 42;
 
-        new Expectations(layer) {{
-            layer.size(); times = 1; result = size;
+        new Expectations() {{
+            neurons.size(); times = 1; result = size;
         }};
 
         final int result = layer.size();
