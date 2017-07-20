@@ -24,13 +24,9 @@ public class NeuronBuilder {
         if (inputSize < 1)
             throw new IllegalArgumentException("Neuron must contain at least one input");
 
-        final Set<Activation> activations = eligibleActivations != null
-                ? eligibleActivations
-                : Collections.emptySet();
-
         return new NeuronBuilder()
                 .randomWeights(inputSize)
-                .randomActivationOf(activations)
+                .randomActivationOf(eligibleActivations)
                 .randomBias()
                 .build();
     }

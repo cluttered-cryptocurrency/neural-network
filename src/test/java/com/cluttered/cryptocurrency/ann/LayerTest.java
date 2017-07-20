@@ -9,8 +9,11 @@ import mockit.integration.junit4.JMockit;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import static com.cluttered.cryptocurrency.ann.activation.Activation.TAN_H;
 
 /**
  * @author cluttered.code@gmail.com
@@ -29,6 +32,16 @@ public class LayerTest {
     @Injectable
     @SuppressWarnings("unused")
     private List<Neuron> neurons;
+
+    @Test
+    public void testRandom() {
+        final int inputSize = 42;
+        final int size = 16;
+        final Set<Activation> eligibleActivations = new HashSet<>();
+        eligibleActivations.add(TAN_H);
+
+        final Layer result = Layer.random(inputSize, size, eligibleActivations);
+    }
 
     @Test
     public void testFire() {
