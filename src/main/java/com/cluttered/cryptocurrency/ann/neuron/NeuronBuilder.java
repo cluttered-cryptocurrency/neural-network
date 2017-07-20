@@ -13,7 +13,7 @@ public class NeuronBuilder {
 
     private static final Random RANDOM = new Random();
 
-    private Double bias;
+    private double bias;
     private List<Double> weights;
     private Activation activation;
 
@@ -24,15 +24,15 @@ public class NeuronBuilder {
         if (inputSize < 1)
             throw new IllegalArgumentException("Neuron must contain at least one input");
 
-        return NeuronBuilder.create()
+        final Set<Activation> activations = eligibleActivations != null
+                ? eligibleActivations
+                : Collections.emptySet();
+
+        return new NeuronBuilder()
                 .randomWeights(inputSize)
-                .randomActivationOf(eligibleActivations)
+                .randomActivationOf(activations)
                 .randomBias()
                 .build();
-    }
-
-    private static NeuronBuilder create() {
-        return new NeuronBuilder();
     }
 
     private NeuronBuilder randomWeights(final int inputSize) {
@@ -59,17 +59,12 @@ public class NeuronBuilder {
         return this;
     }
 
-    private Double randomBoundedDouble() {
+    private double randomBoundedDouble() {
         // bound: [-1, 1)
         return RANDOM.nextDouble() * 2 - 1;
     }
 
     private Neuron build() {
-        if (weights == null || weights.isEmpty())
-            throw new IllegalStateException("Neuron must contain at least one weight");
-        if (activation == null)
-            throw new IllegalStateException("Neuron must contain a valid Activation");
-
         return new Neuron(bias, weights, activation);
     }
 }
