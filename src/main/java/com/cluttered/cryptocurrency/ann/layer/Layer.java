@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -15,16 +16,16 @@ public class Layer {
 
     private static final Logger LOG = LoggerFactory.getLogger(Layer.class);
 
-    private final Activation[] eligibleActivations;
+    private final Set<Activation> eligibleActivations;
     private final List<Neuron> neurons;
 
-    Layer(final Activation[] eligibleActivations, final List<Neuron> neurons) {
+    Layer(final Set<Activation> eligibleActivations, final List<Neuron> neurons) {
         this.eligibleActivations = eligibleActivations;
         this.neurons = neurons;
     }
 
-    public static Layer random(final int inputSize, final int size, final Activation... eligible) {
-        return LayerBuilder.random(inputSize, size, eligible);
+    public static Layer random(final int inputSize, final int size, final Set<Activation> eligibleActivations) {
+        return LayerBuilder.random(inputSize, size, eligibleActivations);
     }
 
     public List<Double> fire(final List<Double> inputs) {

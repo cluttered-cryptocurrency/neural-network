@@ -2,8 +2,7 @@ package com.cluttered.cryptocurrency.ann.neuron;
 
 import com.cluttered.cryptocurrency.ann.activation.Activation;
 
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -21,7 +20,7 @@ public class NeuronBuilder {
     private NeuronBuilder() {
     }
 
-    static Neuron random(final int inputSize, final Activation... eligibleActivations) {
+    static Neuron random(final int inputSize, final Set<Activation> eligibleActivations) {
         if (inputSize < 1)
             throw new IllegalArgumentException("Neuron must contain at least one input");
 
@@ -44,12 +43,14 @@ public class NeuronBuilder {
         return this;
     }
 
-    private NeuronBuilder randomActivationOf(final Activation... eligibleActivations) {
-        final Activation[] activations = eligibleActivations.length > 0
-                ? eligibleActivations
-                : Activation.values();
-        final int index = RANDOM.nextInt(activations.length);
-        activation = activations[index];
+    private NeuronBuilder randomActivationOf(final Set<Activation> eligibleActivations) {
+        // All Activations are eligible if none are specified
+        final List<Activation> activations = !eligibleActivations.isEmpty()
+                ? new ArrayList<>(eligibleActivations)
+                : Arrays.asList(Activation.values());
+
+        final int index = RANDOM.nextInt(activations.size());
+        activation = activations.get(index);
         return this;
     }
 

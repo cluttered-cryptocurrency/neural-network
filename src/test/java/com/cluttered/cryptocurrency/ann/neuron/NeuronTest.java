@@ -12,8 +12,7 @@ import java.util.List;
 
 import static com.cluttered.cryptocurrency.ann.activation.Activation.LINEAR;
 import static java.lang.Double.*;
-import static mockit.Deencapsulation.invoke;
-import static mockit.Deencapsulation.setField;
+import static mockit.Deencapsulation.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -38,16 +37,16 @@ public class NeuronTest {
     @SuppressWarnings("unused")
     private final Activation activation = LINEAR;
 
-//    @Test
-//    public void testBuilder(@Mocked final NeuronBuilder neuronBuilder) {
-//        new Expectations() {{
-//            NeuronBuilder.create(); times = 1; result = neuronBuilder;
-//        }};
-//
-//        final NeuronBuilder result = Neuron.builder();
-//
-//        assertThat(result).isEqualTo(neuronBuilder);
-//    }
+    @Test
+    public void testRandom() {
+        final int inputSize = 12;
+
+        final Neuron result = Neuron.random(inputSize, Collections.emptySet());
+        assertThat(result).isNotNull();
+
+        final List<Double> weights = getField(result, "weights");
+        assertThat(weights.size()).isEqualTo(inputSize);
+    }
 
     @Test
     public void testFire(@Mocked final List<Double> inputs) {

@@ -10,6 +10,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author cluttered.code@gmail.com
@@ -23,7 +24,7 @@ public class LayerTest {
 
     @Injectable
     @SuppressWarnings("unused")
-    private final Activation[] eligibleActivations = Activation.values();
+    private Set<Activation> eligibleActivations;
 
     @Injectable
     @SuppressWarnings("unused")

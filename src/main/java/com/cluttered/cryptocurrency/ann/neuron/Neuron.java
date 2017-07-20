@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.IntStream;
 
 /**
@@ -24,8 +25,8 @@ public class Neuron {
         this.activation = activation;
     }
 
-    public static Neuron random(final int inputSize, final Activation... eligible) {
-        return NeuronBuilder.random(inputSize, eligible);
+    public static Neuron random(final int inputSize, final Set<Activation> eligibleActivations) {
+        return NeuronBuilder.random(inputSize, eligibleActivations);
     }
 
     /**
