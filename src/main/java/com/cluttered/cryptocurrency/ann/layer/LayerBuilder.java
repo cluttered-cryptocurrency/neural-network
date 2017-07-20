@@ -21,14 +21,10 @@ public class LayerBuilder {
         if (size < 1)
             throw new IllegalArgumentException("size must be greater than 0");
 
-        return LayerBuilder.create()
+        return new LayerBuilder()
                 .eligibleActivations(eligibleActivations)
                 .randomNeurons(inputSize, size, eligibleActivations)
                 .build();
-    }
-
-    private static LayerBuilder create() {
-        return new LayerBuilder();
     }
 
     private LayerBuilder eligibleActivations(final Set<Activation> eligibleActivations) {
@@ -44,8 +40,6 @@ public class LayerBuilder {
     }
 
     private Layer build() {
-        if (neurons == null || neurons.isEmpty())
-            throw new IllegalStateException("Layer must contain at least one Neuron");
         return new Layer(eligibleActivations, neurons);
     }
 }

@@ -2,6 +2,7 @@
   "inputSize": 2,
   "layers": [
     {
+      "eligibleActivations": ["SIGMOID"],
       "neurons": [
         {
           "activation": "SIGMOID",
@@ -14,6 +15,7 @@
         }
       ]
     }, {
+      "eligibleActivations": ["SIGMOID"],
       "neurons": [
         {
           "activation": "SIGMOID",

@@ -3,6 +3,7 @@ package com.cluttered.cryptocurrency.ann;
 import com.cluttered.cryptocurrency.ann.activation.Activation;
 import com.cluttered.cryptocurrency.ann.layer.Layer;
 import com.cluttered.cryptocurrency.ann.neuron.Neuron;
+import mockit.Expectations;
 import mockit.Injectable;
 import mockit.Tested;
 import mockit.integration.junit4.JMockit;
@@ -55,6 +56,18 @@ public class LayerTest {
         final List<Double> result = layer.fire(inputs);
 
         assertThat(result.size()).isEqualTo(3);
+    }
 
+    @Test
+    public void testSize() {
+        final int size = 42;
+
+        new Expectations(layer) {{
+            layer.size(); times = 1; result = size;
+        }};
+
+        final int result = layer.size();
+
+        assertThat(result).isEqualTo(size);
     }
 }
