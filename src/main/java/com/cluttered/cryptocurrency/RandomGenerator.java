@@ -1,5 +1,6 @@
 package com.cluttered.cryptocurrency;
 
+import com.cluttered.cryptocurrency.ann.ActivationFunction;
 import com.cluttered.cryptocurrency.ann.Neuron;
 
 import java.util.List;
@@ -38,9 +39,9 @@ public class RandomGenerator {
         return RANDOM.nextDouble();
     }
 
-    public static List<Neuron> randomNeurons(final int inputSize, final int size) {
+    public static List<Neuron> randomNeurons(final int inputSize, final int size, final ActivationFunction activation) {
         return IntStream.range(0, size)
-                .mapToObj(i -> Neuron.generate(inputSize))
+                .mapToObj(i -> Neuron.generate(inputSize, activation))
                 .collect(Collectors.toList());
     }
 

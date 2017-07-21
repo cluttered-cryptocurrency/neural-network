@@ -23,8 +23,8 @@ public class Layer implements GeneticElement<Layer> {
         this.neurons = neurons;
     }
 
-    public static Layer generate(final int inputSize, final int size) {
-        return new Layer(randomNeurons(inputSize, size));
+    public static Layer generate(final int inputSize, final int size, final ActivationFunction activation) {
+        return new Layer(randomNeurons(inputSize, size, activation));
     }
 
     public List<Double> fire(final List<Double> inputs) {

@@ -9,7 +9,6 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import static com.cluttered.cryptocurrency.RandomGenerator.*;
-import static java.lang.Math.exp;
 
 /**
  * @author cluttered.code@gmail.com
@@ -20,29 +19,27 @@ public class Neuron implements GeneticElement<Neuron> {
 
     private final double bias;
     private final double leakage;
+    private final ActivationFunction activation;
     private final List<Double> weights;
 
-    private Neuron(final double bias, final double leakage, final List<Double> weights) {
+    private Neuron(final double bias, final double leakage, final List<Double> weights, final ActivationFunction activation) {
+        this.activation = activation;
         this.bias = bias;
         this.leakage = leakage;
         this.weights = weights;
     }
 
-    public static Neuron generate(final int inputSize) {
-        return new Neuron(randomBias(), randomLeakage(), randomWeights(inputSize));
+    public static Neuron generate(final int inputSize, final ActivationFunction activation) {
+        return new Neuron(randomBias(), randomLeakage(), randomWeights(inputSize), activation);
     }
 
     public double fire(final List<Double> inputs) {
         final long startTimeNanos = System.nanoTime();
         LOG.debug("Fire Neuron");
         final double biasDotProduct = dotProductWithWeights(inputs) + bias;
-        final double activation = exponentialLinearUnitActivation(biasDotProduct);
+        final double result = activation.execute(biasDotProduct, leakage);
         LOG.trace("Neuron Time: {}nanos", System.nanoTime() - startTimeNanos);
-        return activation;
-    }
-
-    private double exponentialLinearUnitActivation(final double biasDotProduct) {
-        return leakage * (exp(biasDotProduct) - 1);
+        return result;
     }
 
     private double dotProductWithWeights(final List<Double> inputs) {
@@ -61,7 +58,7 @@ public class Neuron implements GeneticElement<Neuron> {
         final List<Double> mutatedWeights = weights.stream()
                 .map(weight -> random() < mutationRate ? randomWeight() : weight)
                 .collect(Collectors.toList());
-        return new Neuron(mutatedBias, mutatedLeakage, mutatedWeights);
+        return new Neuron(mutatedBias, mutatedLeakage, mutatedWeights, activation);
     }
 
     @Override
@@ -72,6 +69,6 @@ public class Neuron implements GeneticElement<Neuron> {
                 .mapToDouble(i -> coinFlip() ? mate.weights.get(i) : weights.get(i))
                 .boxed()
                 .collect(Collectors.toList());
-        return new Neuron(crossoverBias, crossoverLeakage, crossoverWeights);
+        return new Neuron(crossoverBias, crossoverLeakage, crossoverWeights, activation);
     }
 }

@@ -6,17 +6,19 @@ import java.util.List;
 public class NeuralNetworkBuilder {
 
     private int inputSize;
+    private ActivationFunction activation;
     private List<Layer> layers = new ArrayList<>();
 
-    private NeuralNetworkBuilder(final int inputSize) {
+    private NeuralNetworkBuilder(final int inputSize, final ActivationFunction activation) {
         this.inputSize = inputSize;
+        this.activation = activation;
     }
 
-    public static NeuralNetworkBuilder create(final int inputSize) {
+    protected static NeuralNetworkBuilder create(final int inputSize, final ActivationFunction activation) {
         if (inputSize < 1)
             throw new IllegalArgumentException("NeuralNetwork must contain at least one input");
 
-        return new NeuralNetworkBuilder(inputSize);
+        return new NeuralNetworkBuilder(inputSize, activation);
     }
 
     public NeuralNetworkBuilder addLayer(final int size) {
@@ -24,7 +26,7 @@ public class NeuralNetworkBuilder {
                 ? layers.get(layers.size() - 1).size()
                 : inputSize;
 
-        layers.add(Layer.generate(inputs, size));
+        layers.add(Layer.generate(inputs, size, activation));
         return this;
     }
 
