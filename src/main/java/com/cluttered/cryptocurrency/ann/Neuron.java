@@ -42,7 +42,7 @@ public class Neuron implements GeneticElement<Neuron> {
         return result;
     }
 
-    double dotProductWithWeights(final List<Double> inputs) {
+    protected double dotProductWithWeights(final List<Double> inputs) {
         if (inputs.size() != weights.size())
             throw new IllegalArgumentException("inputs (" + inputs.size() + ") and weights (" + weights.size() + ") must have the same number of elements");
 
@@ -65,10 +65,11 @@ public class Neuron implements GeneticElement<Neuron> {
     public Neuron crossover(final Neuron mate) {
         final double crossoverBias = coinFlip() ? mate.bias : bias;
         final double crossoverLeakage = coinFlip() ? mate.leakage : leakage;
+        final Activation crossoverActivation = coinFlip() ? mate.activation : activation;
         final List<Double> crossoverWeights = IntStream.range(0, weights.size())
                 .mapToDouble(i -> coinFlip() ? mate.weights.get(i) : weights.get(i))
                 .boxed()
                 .collect(Collectors.toList());
-        return new Neuron(crossoverBias, crossoverLeakage, crossoverWeights, activation);
+        return new Neuron(crossoverBias, crossoverLeakage, crossoverWeights, crossoverActivation);
     }
 }

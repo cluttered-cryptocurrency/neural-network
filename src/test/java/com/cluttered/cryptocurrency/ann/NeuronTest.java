@@ -12,6 +12,8 @@ import org.junit.runner.RunWith;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.cluttered.cryptocurrency.ann.Activation.BINARY;
+import static com.cluttered.cryptocurrency.ann.Activation.ELU;
 import static java.lang.Math.random;
 import static mockit.Deencapsulation.getField;
 import static mockit.Deencapsulation.setField;
@@ -157,5 +159,57 @@ public class NeuronTest {
         assertThat(leakageResult).isEqualTo(leakage);
         assertThat(activationResult).isEqualTo(activation);
         assertThat(weightsResult).isEqualTo(weights);
+    }
+
+    @Test
+    public void testCrossover_Mine() {
+        final List<Double> weights = Arrays.asList(random(), random(), random(), random());
+        setField(neuron, "weights", weights);
+        final Neuron mate = Neuron.generate(weights.size(), ELU);
+
+        new Expectations(RandomGenerator.class) {{
+            RandomGenerator.coinFlip(); result = false;
+        }};
+
+        final Neuron result = neuron.crossover(mate);
+
+        final double biasResult = getField(result, "bias");
+        final double leakageResult = getField(result, "leakage");
+        final Activation activationResult = getField(result, "activation");
+        final List<Double> weightsResult = getField(result, "weights");
+
+        assertThat(biasResult).isEqualTo(bias);
+        assertThat(leakageResult).isEqualTo(leakage);
+        assertThat(activationResult).isEqualTo(activation);
+        assertThat(weightsResult).isEqualTo(weights);
+    }
+
+    @Test
+    public void testCrossover_Mates() {
+        setField(neuron, "activation", BINARY);
+        final List<Double> weights = Arrays.asList(random(), random(), random(), random());
+        setField(neuron, "weights", weights);
+        final Neuron mate = Neuron.generate(weights.size(), ELU);
+
+        new Expectations(RandomGenerator.class) {{
+            RandomGenerator.coinFlip(); result = true;
+        }};
+
+        final Neuron result = neuron.crossover(mate);
+
+        final double biasResult = getField(result, "bias");
+        final double leakageResult = getField(result, "leakage");
+        final Activation activationResult = getField(result, "activation");
+        final List<Double> weightsResult = getField(result, "weights");
+
+        final double biasMate = getField(mate, "bias");
+        final double leakageMate = getField(mate, "leakage");
+        final Activation activationMate = getField(mate, "activation");
+        final List<Double> weightsMate = getField(mate, "weights");
+
+        assertThat(biasResult).isEqualTo(biasMate);
+        assertThat(leakageResult).isEqualTo(leakageMate);
+        assertThat(activationResult).isEqualTo(activationMate);
+        assertThat(weightsResult).isEqualTo(weightsMate);
     }
 }
