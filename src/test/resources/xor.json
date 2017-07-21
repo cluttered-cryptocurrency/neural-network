@@ -2,25 +2,40 @@
   "inputSize": 2,
   "layers": [
     {
-      "eligibleActivations": ["SIGMOID"],
+      "eligibleActivations": [
+        "SIGMOID"
+      ],
       "neurons": [
         {
           "activation": "SIGMOID",
           "bias": -90,
-          "weights": [60, 60]
-        }, {
+          "weights": [
+            60,
+            60
+          ]
+        },
+        {
           "activation": "SIGMOID",
           "bias": -40,
-          "weights": [80, 80]
+          "weights": [
+            80,
+            80
+          ]
         }
       ]
-    }, {
-      "eligibleActivations": ["SIGMOID"],
+    },
+    {
+      "eligibleActivations": [
+        "SIGMOID"
+      ],
       "neurons": [
         {
           "activation": "SIGMOID",
           "bias": -30,
-          "weights": [-60, 60]
+          "weights": [
+            -60,
+            60
+          ]
         }
       ]
     }
