@@ -1,10 +1,7 @@
 package com.cluttered.cryptocurrency.ann;
 
-import com.cluttered.cryptocurrency.ann.activation.Activation;
-import com.cluttered.cryptocurrency.ann.layer.Layer;
-
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.List;
 
 public class NeuralNetworkBuilder {
 
@@ -22,16 +19,12 @@ public class NeuralNetworkBuilder {
         return new NeuralNetworkBuilder(inputSize);
     }
 
-    public NeuralNetworkBuilder addLayer(final int size, final Activation... eligibleActivations) {
+    public NeuralNetworkBuilder addLayer(final int size) {
         int inputs = !layers.isEmpty()
                 ? layers.get(layers.size() - 1).size()
                 : inputSize;
 
-        final Set<Activation> eligibleActivationSet = Arrays.stream(eligibleActivations)
-                .filter(Objects::nonNull)
-                .collect(Collectors.toSet());
-
-        layers.add(Layer.random(inputs, size, eligibleActivationSet));
+        layers.add(Layer.generate(inputs, size));
         return this;
     }
 

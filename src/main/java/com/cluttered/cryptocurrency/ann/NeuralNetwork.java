@@ -1,16 +1,18 @@
 package com.cluttered.cryptocurrency.ann;
 
-import com.cluttered.cryptocurrency.ann.layer.Layer;
+import com.cluttered.cryptocurrency.ga.GeneticElement;
 import com.google.gson.Gson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  * @author cluttered.code@gmail.com
  */
-public class NeuralNetwork {
+public class NeuralNetwork implements GeneticElement<NeuralNetwork> {
 
     private static final Logger LOG = LoggerFactory.getLogger(NeuralNetwork.class);
     private static final Gson GSON = new Gson();
@@ -51,5 +53,21 @@ public class NeuralNetwork {
 
     public String toJson() {
         return GSON.toJson(this);
+    }
+
+    @Override
+    public NeuralNetwork mutate(final double mutationRate) {
+        final List<Layer> mutatedLayers = layers.stream()
+                .map(layer -> layer.mutate(mutationRate))
+                .collect(Collectors.toList());
+        return new NeuralNetwork(inputSize, mutatedLayers);
+    }
+
+    @Override
+    public NeuralNetwork crossover(final NeuralNetwork mate) {
+        final List<Layer> crossoverLayers = IntStream.range(0, layers.size())
+                .mapToObj(i -> layers.get(i).crossover(mate.layers.get(i)))
+                .collect(Collectors.toList());
+        return new NeuralNetwork(inputSize, crossoverLayers);
     }
 }
