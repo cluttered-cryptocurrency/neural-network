@@ -6,25 +6,25 @@ import java.util.List;
 /**
  * @author cluttered.code@gmail.com
  */
-public class NeuralNetworkBuilder {
+public class Builder {
 
     private int inputSize;
     private Activation activation;
     private List<Layer> layers = new ArrayList<>();
 
-    private NeuralNetworkBuilder(final int inputSize, final Activation activation) {
+    private Builder(final int inputSize, final Activation activation) {
         this.inputSize = inputSize;
         this.activation = activation;
     }
 
-    protected static NeuralNetworkBuilder create(final int inputSize, final Activation activation) {
+    protected static Builder create(final int inputSize, final Activation activation) {
         if (inputSize < 1)
             throw new IllegalArgumentException("NeuralNetwork must contain at least one input");
 
-        return new NeuralNetworkBuilder(inputSize, activation);
+        return new Builder(inputSize, activation);
     }
 
-    public NeuralNetworkBuilder addLayer(final int size) {
+    public Builder addLayer(final int size) {
         int inputs = !layers.isEmpty()
                 ? layers.get(layers.size() - 1).size()
                 : inputSize;

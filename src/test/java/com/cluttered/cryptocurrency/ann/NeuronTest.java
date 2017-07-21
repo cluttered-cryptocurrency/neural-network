@@ -1,6 +1,5 @@
 package com.cluttered.cryptocurrency.ann;
 
-import com.cluttered.cryptocurrency.RandomGenerator;
 import mockit.Expectations;
 import mockit.Injectable;
 import mockit.Mocked;
@@ -18,6 +17,7 @@ import static java.lang.Math.random;
 import static mockit.Deencapsulation.getField;
 import static mockit.Deencapsulation.setField;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.within;
 
 /**
  * @author cluttered.code@gmail.com
@@ -97,7 +97,7 @@ public class NeuronTest {
 
         final double result = neuron.dotProductWithWeights(inputs);
 
-        assertThat(result).isEqualTo(expected);
+        assertThat(result).isCloseTo(expected, within(0.01));
     }
 
     @Test(expected = IllegalArgumentException.class)

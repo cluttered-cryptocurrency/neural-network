@@ -29,8 +29,8 @@ public class NeuralNetwork implements GeneticElement<NeuralNetwork> {
         return GSON.fromJson(json, NeuralNetwork.class);
     }
 
-    public static NeuralNetworkBuilder builder(final int inputSize, final Activation activation) {
-        return NeuralNetworkBuilder.create(inputSize, activation);
+    public static Builder builder(final int inputSize, final Activation activation) {
+        return Builder.create(inputSize, activation);
     }
 
     public List<Double> fire(final List<Double> inputs) {

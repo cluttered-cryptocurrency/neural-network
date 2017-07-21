@@ -5,7 +5,7 @@ import static java.lang.Math.*;
 /**
  * @author cluttered.code@gmail.com
  */
-public enum Activation implements ActivationFunction {
+public enum Activation {
     LINEAR((input, leakage) -> input),
     BINARY((input, leakage) -> input > 0 ? 1 : 0),
     SIGMOID((input, leakage) -> 1 / (1 + exp(-input))),
@@ -23,8 +23,12 @@ public enum Activation implements ActivationFunction {
         this.activationFunction = activationFunction;
     }
 
-    @Override
-    public double execute(double input, double leakage) {
+    public double execute(final double input, final double leakage) {
         return activationFunction.execute(input, leakage);
+    }
+
+    @FunctionalInterface
+    public interface ActivationFunction {
+        double execute(final double input, final double leakage);
     }
 }
