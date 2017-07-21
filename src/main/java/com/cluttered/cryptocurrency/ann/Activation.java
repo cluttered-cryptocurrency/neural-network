@@ -2,6 +2,9 @@ package com.cluttered.cryptocurrency.ann;
 
 import static java.lang.Math.*;
 
+/**
+ * @author cluttered.code@gmail.com
+ */
 public enum Activation implements ActivationFunction {
     LINEAR((input, leakage) -> input),
     BINARY((input, leakage) -> input > 0 ? 1 : 0),

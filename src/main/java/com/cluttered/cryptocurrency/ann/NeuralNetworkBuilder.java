@@ -3,6 +3,9 @@ package com.cluttered.cryptocurrency.ann;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author cluttered.code@gmail.com
+ */
 public class NeuralNetworkBuilder {
 
     private int inputSize;

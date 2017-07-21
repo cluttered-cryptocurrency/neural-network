@@ -8,6 +8,9 @@ import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+/**
+ * @author cluttered.code@gmail.com
+ */
 public class RandomGenerator {
 
     private static final Random RANDOM = new Random();
