@@ -9,15 +9,15 @@ import java.util.List;
 public class NeuralNetworkBuilder {
 
     private int inputSize;
-    private ActivationFunction activation;
+    private Activation activation;
     private List<Layer> layers = new ArrayList<>();
 
-    private NeuralNetworkBuilder(final int inputSize, final ActivationFunction activation) {
+    private NeuralNetworkBuilder(final int inputSize, final Activation activation) {
         this.inputSize = inputSize;
         this.activation = activation;
     }
 
-    protected static NeuralNetworkBuilder create(final int inputSize, final ActivationFunction activation) {
+    protected static NeuralNetworkBuilder create(final int inputSize, final Activation activation) {
         if (inputSize < 1)
             throw new IllegalArgumentException("NeuralNetwork must contain at least one input");
 

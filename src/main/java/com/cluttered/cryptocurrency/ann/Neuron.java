@@ -19,17 +19,17 @@ public class Neuron implements GeneticElement<Neuron> {
 
     private final double bias;
     private final double leakage;
-    private final ActivationFunction activation;
+    private final Activation activation;
     private final List<Double> weights;
 
-    private Neuron(final double bias, final double leakage, final List<Double> weights, final ActivationFunction activation) {
+    private Neuron(final double bias, final double leakage, final List<Double> weights, final Activation activation) {
         this.activation = activation;
         this.bias = bias;
         this.leakage = leakage;
         this.weights = weights;
     }
 
-    public static Neuron generate(final int inputSize, final ActivationFunction activation) {
+    public static Neuron generate(final int inputSize, final Activation activation) {
         return new Neuron(randomBias(), randomLeakage(), randomWeights(inputSize), activation);
     }
 
@@ -42,7 +42,7 @@ public class Neuron implements GeneticElement<Neuron> {
         return result;
     }
 
-    private double dotProductWithWeights(final List<Double> inputs) {
+    double dotProductWithWeights(final List<Double> inputs) {
         if (inputs.size() != weights.size())
             throw new IllegalArgumentException("inputs (" + inputs.size() + ") and weights (" + weights.size() + ") must have the same number of elements");
 

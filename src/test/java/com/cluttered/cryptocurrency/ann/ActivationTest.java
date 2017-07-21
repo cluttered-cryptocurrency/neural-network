@@ -4,7 +4,6 @@ import mockit.integration.junit4.JMockit;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static com.cluttered.cryptocurrency.RandomGenerator.random;
 import static com.cluttered.cryptocurrency.ann.Activation.*;
 import static java.lang.Math.*;
 import static org.assertj.core.api.Assertions.assertThat;
