@@ -47,8 +47,6 @@ public class NeuronTest {
     public void testGenerate(@Mocked final Activation activation,
                              @Mocked final List<Double> weights) {
         final int inputSize = 32;
-        final double bias = random();
-        final double leakage = random();
 
         new Expectations(RandomGenerator.class) {{
             RandomGenerator.randomBias(); times = 1; result = bias;
@@ -56,12 +54,12 @@ public class NeuronTest {
             RandomGenerator.randomWeights(inputSize); times = 1; result = weights;
         }};
 
-        final Neuron neuron = Neuron.generate(32, activation);
+        final Neuron result = Neuron.generate(32, activation);
 
-        final double biasResult = getField(neuron, "bias");
-        final double leakageResult = getField(neuron, "leakage");
-        final Activation activationResult = getField(neuron, "activation");
-        final List<Double> weightsResult = getField(neuron, "weights");
+        final double biasResult = getField(result, "bias");
+        final double leakageResult = getField(result, "leakage");
+        final Activation activationResult = getField(result, "activation");
+        final List<Double> weightsResult = getField(result, "weights");
 
         assertThat(biasResult).isEqualTo(bias);
         assertThat(leakageResult).isEqualTo(leakage);
@@ -107,5 +105,57 @@ public class NeuronTest {
         setField(neuron, "weights", weights);
 
         neuron.dotProductWithWeights(inputs);
+    }
+
+    @Test
+    public void testMutate_All() {
+        final double mutationRate = 1;
+        final double weight = random();
+        final List<Double> weights = Arrays.asList(weight, weight, weight, weight);
+        setField(neuron, "weights", weights);
+
+        new Expectations(RandomGenerator.class) {{
+            RandomGenerator.randomBias(); times = 1; result = bias;
+            RandomGenerator.randomLeakage(); times = 1; result = leakage;
+            RandomGenerator.randomWeight(); times = weights.size(); result = weight;
+        }};
+
+        final Neuron result = neuron.mutate(mutationRate);
+
+        final double biasResult = getField(result, "bias");
+        final double leakageResult = getField(result, "leakage");
+        final Activation activationResult = getField(result, "activation");
+        final List<Double> weightsResult = getField(result, "weights");
+
+        assertThat(biasResult).isEqualTo(bias);
+        assertThat(leakageResult).isEqualTo(leakage);
+        assertThat(activationResult).isEqualTo(activation);
+        assertThat(weightsResult).isEqualTo(weights);
+    }
+
+    @Test
+    public void testMutate_None() {
+        final double mutationRate = -1;
+        final double weight = random();
+        final List<Double> weights = Arrays.asList(weight, weight, weight, weight);
+        setField(neuron, "weights", weights);
+
+        new Expectations(RandomGenerator.class) {{
+            RandomGenerator.randomBias(); times = 0;
+            RandomGenerator.randomLeakage(); times = 0;
+            RandomGenerator.randomWeight(); times = 0;
+        }};
+
+        final Neuron result = neuron.mutate(mutationRate);
+
+        final double biasResult = getField(result, "bias");
+        final double leakageResult = getField(result, "leakage");
+        final Activation activationResult = getField(result, "activation");
+        final List<Double> weightsResult = getField(result, "weights");
+
+        assertThat(biasResult).isEqualTo(bias);
+        assertThat(leakageResult).isEqualTo(leakage);
+        assertThat(activationResult).isEqualTo(activation);
+        assertThat(weightsResult).isEqualTo(weights);
     }
 }
