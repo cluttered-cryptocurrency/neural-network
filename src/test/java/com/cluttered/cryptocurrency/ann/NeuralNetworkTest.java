@@ -108,6 +108,14 @@ public class NeuralNetworkTest {
         assertThat(result).isEqualTo(layerResults3);
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testFire_WrongInputSize() {
+        final List<Double> inputs = Arrays.asList(random(), random(), random());
+        setField(neuralNetwork, "inputSize", inputs.size() + 1);
+
+        neuralNetwork.fire(inputs);
+    }
+
     @Test
     public void testMutate(@Mocked final Layer layer,
                            @Mocked final Layer mutatedLayer) {
