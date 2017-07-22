@@ -2,6 +2,7 @@ package com.cluttered.cryptocurrency.ann;
 
 import mockit.Expectations;
 import mockit.Mocked;
+import mockit.Tested;
 import mockit.integration.junit4.JMockit;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,6 +19,10 @@ import static org.assertj.core.api.Assertions.within;
  */
 @RunWith(JMockit.class)
 public class RandomGeneratorTest {
+
+    @Tested
+    @SuppressWarnings("unused")
+    private RandomGenerator randomGenerator;
 
     private final Random random = getField(RandomGenerator.class, "RANDOM");
 
