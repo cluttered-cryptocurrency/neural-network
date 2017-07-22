@@ -10,11 +10,12 @@ public class Builder {
 
     private int inputSize;
     private Activation activation;
-    private List<Layer> layers = new ArrayList<>();
+    private List<Layer> layers;
 
     private Builder(final int inputSize, final Activation activation) {
         this.inputSize = inputSize;
         this.activation = activation;
+        layers = new ArrayList<>();
     }
 
     protected static Builder create(final int inputSize, final Activation activation) {
