@@ -12,8 +12,8 @@ public class RandomGenerator {
 
     private static final Random RANDOM = new Random();
 
-    public static double randomBetween(final int min, final int max) {
-        return RANDOM.nextDouble() * (max - min + 1) + min;
+    public static double randomBetween(final double min, final double max) {
+        return RANDOM.nextDouble() * (max - min) + min;
     }
 
     public static double random() {
