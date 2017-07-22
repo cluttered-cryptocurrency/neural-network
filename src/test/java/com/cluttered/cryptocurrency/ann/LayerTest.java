@@ -11,11 +11,9 @@ import org.junit.runner.RunWith;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.cluttered.cryptocurrency.ann.Activation.P_RELU;
 import static com.cluttered.cryptocurrency.ann.Layer.generate;
 import static java.lang.Math.random;
-import static mockit.Deencapsulation.getField;
-import static mockit.Deencapsulation.setField;
+import static mockit.Deencapsulation.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -102,9 +100,8 @@ public class LayerTest {
                               @Mocked final Neuron crossoverNeuron) {
         final List<Neuron> neurons = Arrays.asList(neuron, neuron, neuron, neuron, neuron);
         setField(layer, "neurons", neurons);
-        final Layer mateLayer = Layer.generate(3, 5, P_RELU);
         final List<Neuron> mateNeurons = Arrays.asList(mateNeuron, mateNeuron, mateNeuron, mateNeuron, mateNeuron);
-        setField(mateLayer, "neurons", mateNeurons);
+        final Layer mateLayer = newInnerInstance(Layer.class, mateNeurons);
 
         new Expectations() {{
             neuron.crossover(mateNeuron); times = neurons.size(); result = crossoverNeuron;

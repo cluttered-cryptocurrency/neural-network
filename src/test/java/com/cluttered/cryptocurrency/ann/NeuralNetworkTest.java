@@ -12,10 +12,8 @@ import org.junit.runner.RunWith;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.cluttered.cryptocurrency.ann.Activation.BINARY;
 import static java.lang.Math.random;
-import static mockit.Deencapsulation.getField;
-import static mockit.Deencapsulation.setField;
+import static mockit.Deencapsulation.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -134,9 +132,8 @@ public class NeuralNetworkTest {
                               @Mocked final Layer crossoverLayer) {
         final List<Layer> layers = Arrays.asList(layer, layer, layer);
         setField(neuralNetwork, "layers", layers);
-        final NeuralNetwork mateNeuralNetwork = NeuralNetwork.builder(5, BINARY).build();
         final List<Layer> mateLayers = Arrays.asList(mateLayer, mateLayer, mateLayer);
-        setField(mateNeuralNetwork, "layers", mateLayers);
+        final NeuralNetwork mateNeuralNetwork = newInstance(NeuralNetwork.class, 5, mateLayers);
 
         new Expectations() {{
             layer.crossover(mateLayer); times = layers.size(); result = crossoverLayer;
