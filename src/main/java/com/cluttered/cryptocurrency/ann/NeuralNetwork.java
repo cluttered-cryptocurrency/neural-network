@@ -51,10 +51,6 @@ public class NeuralNetwork implements GeneticElement<NeuralNetwork> {
         return layerResults;
     }
 
-    public String toJson() {
-        return GSON.toJson(this);
-    }
-
     @Override
     public NeuralNetwork mutate(final double mutationRate) {
         final List<Layer> mutatedLayers = layers.stream()
@@ -69,5 +65,13 @@ public class NeuralNetwork implements GeneticElement<NeuralNetwork> {
                 .mapToObj(i -> layers.get(i).crossover(mate.layers.get(i)))
                 .collect(Collectors.toList());
         return new NeuralNetwork(inputSize, crossoverLayers);
+    }
+
+    public String toJson() {
+        return GSON.toJson(this);
+    }
+
+    public String toString() {
+        return toJson();
     }
 }

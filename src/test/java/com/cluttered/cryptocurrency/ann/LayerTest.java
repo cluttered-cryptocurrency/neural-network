@@ -92,6 +92,7 @@ public class LayerTest {
         final Layer result = layer.mutate(mutationRate);
         final List<Neuron> resultNeurons = getField(result, "neurons");
 
+        assertThat(resultNeurons.size()).isEqualTo(neurons.size());
         assertThat(resultNeurons).containsOnly(mutatedNeuron);
     }
 
@@ -112,6 +113,7 @@ public class LayerTest {
         final Layer result = layer.crossover(mateLayer);
         final List<Neuron> resultNeurons = getField(result, "neurons");
 
+        assertThat(resultNeurons.size()).isEqualTo(neurons.size());
         assertThat(resultNeurons).containsOnly(crossoverNeuron);
     }
 
