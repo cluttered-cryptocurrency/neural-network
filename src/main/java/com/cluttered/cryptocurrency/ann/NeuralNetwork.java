@@ -17,10 +17,10 @@ public class NeuralNetwork implements GeneticElement<NeuralNetwork> {
     private static final Logger LOG = LoggerFactory.getLogger(NeuralNetwork.class);
     private static final Gson GSON = new Gson();
 
-    private final Integer inputSize;
+    private final int inputSize;
     private final List<Layer> layers;
 
-    NeuralNetwork(final Integer inputSize, final List<Layer> layers) {
+    NeuralNetwork(final int inputSize, final List<Layer> layers) {
         this.inputSize = inputSize;
         this.layers = layers;
     }
