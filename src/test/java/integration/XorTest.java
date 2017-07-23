@@ -4,9 +4,12 @@ import com.cluttered.cryptocurrency.ann.NeuralNetwork;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 
@@ -14,14 +17,9 @@ public class XorTest {
 
     private static final Logger LOG = LoggerFactory.getLogger(XorTest.class);
 
-    public static void main(final String[] args) throws IOException {
+    public static void main(final String[] args) throws URISyntaxException, IOException {
 
-        final ClassLoader classLoader = ClassLoader.getSystemClassLoader();
-        final File file = new File(classLoader.getResource("xor.json").getFile());
-        final String xorJson = new String(Files.readAllBytes(file.toPath()));
-        LOG.error("Loading NeuralNetwork from json:\n{}", xorJson);
-
-
+        final String xorJson = getXorJson();
         final NeuralNetwork xorNeuralNetwork = NeuralNetwork.fromJson(xorJson);
 
         // [0, 0] -> [0]
@@ -47,6 +45,14 @@ public class XorTest {
         final Double result4 = xorNeuralNetwork.fire(inputs4).get(0);
         LOG.error("4) {} -> {}", inputs4, result4);
         assert(isEqualWithin(result4, 0.0, 0.0000000001));
+    }
+
+    private static String getXorJson() throws URISyntaxException, IOException {
+        final URI uri = ClassLoader.getSystemClassLoader().getResource("xor.json").toURI();
+        final Path path = Paths.get(uri);
+        final String xorJson = new String(Files.readAllBytes(path));
+        LOG.error("Loading NeuralNetwork from json:\n{}", xorJson);
+        return xorJson;
     }
 
     private static boolean isEqualWithin(final double result, final double expected, final double tolerance) {
