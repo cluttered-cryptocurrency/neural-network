@@ -3,6 +3,7 @@ package integration;
 import com.cluttered.cryptocurrency.ann.NeuralNetwork;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.event.Level;
 
 import java.util.List;
 import java.util.Random;
@@ -18,7 +19,7 @@ public class PerformanceTest {
 
     private static Logger LOG = LoggerFactory.getLogger(PerformanceTest.class);
 
-    private static final int INPUT_SETS = 4 * 24 * 365 * 5; // 2 years of 5 minute intervals
+    private static final int INPUT_SETS = 4 * 24 * 365; // 1 year of 15 minute intervals
 
     private static final int INPUTS = 200;
     private static final int HIDDEN_1 = 100;

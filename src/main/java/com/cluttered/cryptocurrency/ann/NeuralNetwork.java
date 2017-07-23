@@ -2,6 +2,7 @@ package com.cluttered.cryptocurrency.ann;
 
 import com.cluttered.cryptocurrency.ga.GeneticElement;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,7 +16,9 @@ import java.util.stream.IntStream;
 public class NeuralNetwork implements GeneticElement<NeuralNetwork> {
 
     private static final Logger LOG = LoggerFactory.getLogger(NeuralNetwork.class);
-    private static final Gson GSON = new Gson();
+    private static final Gson GSON = new GsonBuilder()
+            .serializeSpecialFloatingPointValues()
+            .create();
 
     private final int inputSize;
     private final List<Layer> layers;

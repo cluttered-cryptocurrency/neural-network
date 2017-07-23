@@ -27,20 +27,22 @@
     {
       "neurons": [
         {
-          "activation": "SIGMOID",
           "bias": -90,
-          "weights": [60, 60]
-        }, {
           "activation": "SIGMOID",
+          "weights": [60, 60]
+        },
+        {
           "bias": -40,
+          "activation": "SIGMOID",
           "weights": [80, 80]
         }
       ]
-    }, {
+    },
+    {
       "neurons": [
         {
-          "activation": "SIGMOID",
           "bias": -30,
+          "activation": "SIGMOID",
           "weights": [-60, 60]
         }
       ]
