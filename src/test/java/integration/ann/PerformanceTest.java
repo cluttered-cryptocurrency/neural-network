@@ -1,12 +1,10 @@
-package integration;
+package integration.ann;
 
 import com.cluttered.cryptocurrency.ann.NeuralNetwork;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.slf4j.event.Level;
 
 import java.util.List;
-import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -43,11 +41,9 @@ public class PerformanceTest {
                         .collect(Collectors.toList()))
                 .collect(Collectors.toList());
 
-        final Random random = new Random();
-
         LOG.error("Testing...");
         final long startTimeMillis = System.currentTimeMillis();
-        inputSets.parallelStream()
+        inputSets.stream()
                 .forEach(neuralNetwork::fire);
         LOG.error("Test Time: {}ms", System.currentTimeMillis() - startTimeMillis);
     }

@@ -1,4 +1,4 @@
-package integration;
+package integration.ann;
 
 import com.cluttered.cryptocurrency.ann.NeuralNetwork;
 import org.slf4j.Logger;
