@@ -1,10 +1,11 @@
 package com.cluttered.cryptocurrency.ga;
 
+import com.cluttered.cryptocurrency.ga.impl.TestChromosomeImpl;
+import mockit.Expectations;
+import mockit.Tested;
 import mockit.integration.junit4.JMockit;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import java.util.Collection;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -14,49 +15,48 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(JMockit.class)
 public class ChromosomeTest {
 
+    @Tested
+    @SuppressWarnings("unused")
+    private TestChromosomeImpl chromosome;
+
     @Test
-    public void testCompareTo() {
-        final TestChromosome testChromosome1 = new TestChromosome(4.594);
-        final TestChromosome testChromosome2 = new TestChromosome(0.583);
+    public void testCompareTo_GreaterThan() {
 
-        final int result1 = testChromosome1.compareTo(testChromosome2);
+        final double bigFitness = 4.594;
+        final double littleFitness = 0.583;
+
+        new Expectations(chromosome) {{
+            chromosome.fitness(); times = 2; returns(bigFitness, littleFitness);
+        }};
+
+        final int result1 = chromosome.compareTo(chromosome);
         assertThat(result1).isEqualTo(1);
-
-        final int result2 = testChromosome2.compareTo(testChromosome1);
-        assertThat(result2).isEqualTo(-1);
-
-        final int result3 = testChromosome1.compareTo(testChromosome1);
-        assertThat(result3).isEqualTo(0);
     }
 
+    @Test
+    public void testCompareTo_LessThan() {
 
-    private static class TestChromosome implements Chromosome<Void, TestChromosome> {
+        final double bigFitness = 4.594;
+        final double littleFitness = 0.583;
 
-        final double fitness;
+        new Expectations(chromosome) {{
+            chromosome.fitness(); times = 2; returns(littleFitness, bigFitness);
+        }};
 
-        TestChromosome(final double fitness) {
-            this.fitness = fitness;
-        }
-
-        @Override
-        public void train(final Collection<Void> inputs) {
-            throw new UnsupportedOperationException("train() not supported");
-        }
-
-        @Override
-        public double fitness() {
-            return fitness;
-        }
-
-        @Override
-        public TestChromosome mutate(double mutationRate) {
-            throw new UnsupportedOperationException("mutate() not supported");
-        }
-
-        @Override
-        public TestChromosome crossover(TestChromosome mate) {
-            throw new UnsupportedOperationException("crossover() not supported");
-        }
+        final int result1 = chromosome.compareTo(chromosome);
+        assertThat(result1).isEqualTo(-1);
     }
 
+    @Test
+    public void testCompareTo_Equal() {
+
+        final double fitness = 4.594;
+
+        new Expectations(chromosome) {{
+            chromosome.fitness(); times = 2; result = fitness;
+        }};
+
+        final int result1 = chromosome.compareTo(chromosome);
+        assertThat(result1).isEqualTo(0);
+    }
 }
