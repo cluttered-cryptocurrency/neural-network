@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import static com.cluttered.cryptocurrency.ann.RandomGenerator.randomNeurons;
+import static com.cluttered.cryptocurrency.RandomGenerator.randomNeurons;
 
 /**
  * @author cluttered.code@gmail.com

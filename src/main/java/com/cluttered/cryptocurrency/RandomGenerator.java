@@ -1,4 +1,7 @@
-package com.cluttered.cryptocurrency.ann;
+package com.cluttered.cryptocurrency;
+
+import com.cluttered.cryptocurrency.ann.Activation;
+import com.cluttered.cryptocurrency.ann.Neuron;
 
 import java.util.List;
 import java.util.Random;

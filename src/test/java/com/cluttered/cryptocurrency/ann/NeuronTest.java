@@ -1,5 +1,6 @@
 package com.cluttered.cryptocurrency.ann;
 
+import com.cluttered.cryptocurrency.RandomGenerator;
 import mockit.Expectations;
 import mockit.Injectable;
 import mockit.Mocked;

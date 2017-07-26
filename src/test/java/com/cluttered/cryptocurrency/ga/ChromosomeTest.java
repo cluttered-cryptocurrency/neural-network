@@ -4,6 +4,8 @@ import mockit.integration.junit4.JMockit;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.Collection;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -37,7 +39,7 @@ public class ChromosomeTest {
         }
 
         @Override
-        public void train(final Void inputs) {
+        public void train(final Collection<Void> inputs) {
             throw new UnsupportedOperationException("train() not supported");
         }
 
