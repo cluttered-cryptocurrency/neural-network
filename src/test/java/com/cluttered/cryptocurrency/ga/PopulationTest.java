@@ -163,4 +163,29 @@ public class PopulationTest {
 
         assertThat(result).isEqualTo(targetChromosome);
     }
+
+    @Test
+    public void testMutateGeneration(@Mocked final TestChromosomeImpl chromosome,
+                                     @Mocked final TestChromosomeImpl eliteChromosome,
+                                     @Mocked final TestChromosomeImpl mutatedElite,
+                                     @Mocked final TestChromosomeImpl mutated) {
+        final List<TestChromosomeImpl> generation = Arrays.asList(eliteChromosome, eliteChromosome, chromosome, chromosome);
+
+        final int size = 4;
+        final double elites = 1;
+        final double mutationRate = 0.015;
+
+        new Expectations(population) {{
+            population.size(); times = 1; result = size;
+            population.getElites(); times = 2; result = elites;
+            population.getGeneration(); times = 2; result = generation;
+            population.getMutationRate(); times = 3; result = mutationRate;
+            eliteChromosome.mutate(mutationRate); times = 1; result = mutatedElite;
+            chromosome.mutate(mutationRate); times = 2; result = mutated;
+            population.setGeneration((List<TestChromosomeImpl>) any); times = 1;
+        }};
+
+
+        population.mutateGeneration();
+    }
 }
