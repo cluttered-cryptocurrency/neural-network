@@ -11,6 +11,8 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 public class PopulationTest {
 
     @Tested
@@ -45,5 +47,76 @@ public class PopulationTest {
         }};
 
         population.trainAndSortGeneration(inputs);
+    }
+
+    @Test
+    public void testCrossoverGeneration(@Mocked final TestChromosomeImpl chromosome) {
+        final List<TestChromosomeImpl> generation = Arrays.asList(chromosome, chromosome, chromosome, chromosome);
+
+        final int size = 4;
+        final int elites = 1;
+        final double adjustedTotalFitness = 57832.86;
+
+        new Expectations(population) {{
+            population.size(); times = 2; result = size;
+            population.getElites(); times = 2; result = elites;
+            population.getGeneration(); times = 1; result = generation;
+            population.getAdjustedTotalFitness(); times = 1; result = adjustedTotalFitness;
+            population.selectAndCrossoverPair(adjustedTotalFitness); times = size - (2*elites); result = chromosome;
+            population.setGeneration((List<TestChromosomeImpl>) any); times = 1;
+        }};
+
+        population.crossoverGeneration();
+    }
+
+    @Test
+    public void testGetAdjustedTotalFitness(@Mocked final TestChromosomeImpl chromosome) {
+        final List<TestChromosomeImpl> generation = Arrays.asList(chromosome, chromosome, chromosome);
+        final double offset = -12.847;
+        final double fitness = 7.934;
+
+        new Expectations(population) {{
+            population.getFitnessOffset(); times = 1; result = offset;
+            population.getGeneration(); times = 1; result = generation;
+            chromosome.fitness(); times = generation.size(); result = fitness;
+        }};
+
+        final double result = population.getAdjustedTotalFitness();
+
+        assertThat(result).isEqualTo(generation.size() * (fitness - offset));
+    }
+
+    @Test
+    public void testGetFitnessOffset(@Mocked final List<TestChromosomeImpl> generation,
+                                     @Mocked final TestChromosomeImpl chromosome) {
+        final int size = 36;
+        final double fitness = -83;
+
+        new Expectations(population) {{
+            population.size(); times = 1; result = 36;
+            population.getGeneration(); times = 1; result = generation;
+            generation.get(size-1); times = 1; result = chromosome;
+            chromosome.fitness(); times = 1; result = fitness;
+        }};
+
+        final double result = population.getFitnessOffset();
+
+        assertThat(result).isEqualTo(fitness);
+    }
+
+    @Test
+    public void testSelectAndCrossoverPair(@Mocked final TestChromosomeImpl mother,
+                                           @Mocked final TestChromosomeImpl father,
+                                           @Mocked final TestChromosomeImpl child) {
+        final double adjustedTotalFitness = 99.333;
+
+        new Expectations(population) {{
+            population.fitnessProportionateSelection(adjustedTotalFitness); times = 2; returns(mother, father);
+            mother.crossover(father); times = 1; result = child;
+        }};
+
+        final TestChromosomeImpl result = population.selectAndCrossoverPair(adjustedTotalFitness);
+
+        assertThat(result).isEqualTo(child);
     }
 }

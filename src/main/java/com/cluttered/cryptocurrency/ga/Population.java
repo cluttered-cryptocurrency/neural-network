@@ -58,7 +58,7 @@ public interface Population<I, T extends Chromosome<I, T>> {
         nextGeneration.addAll(elites);
         nextGeneration.addAll(elites);
 
-        final double adjustedTotalFitness = adjustedTotalFitness();
+        final double adjustedTotalFitness = getAdjustedTotalFitness();
         IntStream.range(2 * getElites(), size())
                 .parallel()
                 .forEach(i -> {
@@ -68,7 +68,7 @@ public interface Population<I, T extends Chromosome<I, T>> {
         setGeneration(nextGeneration);
     }
 
-    default double adjustedTotalFitness() {
+    default double getAdjustedTotalFitness() {
         final double fitnessOffset = getFitnessOffset();
         return getGeneration().parallelStream()
                 .mapToDouble(chromosome -> chromosome.fitness() - fitnessOffset)
