@@ -141,4 +141,26 @@ public class PopulationTest {
 
         assertThat(result).isEqualTo(targetChromosome);
     }
+
+    @Test
+    public void testFitnessProportionateSelection_Last(@Mocked final TestChromosomeImpl chromosome,
+                                                  @Mocked final TestChromosomeImpl targetChromosome) {
+        final double adjustedTotalFitness = 9.8;
+        final double target = 9.8;
+        final double offset = 1.0;
+        final List<TestChromosomeImpl> generation = Arrays.asList(chromosome, chromosome, targetChromosome);
+
+        new Expectations(RandomGenerator.class, population) {{
+            RandomGenerator.randomBetween(0, adjustedTotalFitness); times = 1; result = target;
+            population.getFitnessOffset(); times = 1; result = offset;
+            population.getGeneration(); times = 2; result = generation;
+            chromosome.fitness(); times = 1; returns(5.0, 4.0);
+            targetChromosome.fitness(); times = 1; result = 3.8;
+            population.size(); times = 1; result = generation.size();
+        }};
+
+        final TestChromosomeImpl result = population.fitnessProportionateSelection(adjustedTotalFitness);
+
+        assertThat(result).isEqualTo(targetChromosome);
+    }
 }
