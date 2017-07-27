@@ -1,5 +1,6 @@
 package com.cluttered.cryptocurrency.ga;
 
+import com.cluttered.cryptocurrency.RandomGenerator;
 import com.cluttered.cryptocurrency.ga.impl.TestChromosomeImpl;
 import com.cluttered.cryptocurrency.ga.impl.TestPopulationImpl;
 import mockit.Expectations;
@@ -118,5 +119,26 @@ public class PopulationTest {
         final TestChromosomeImpl result = population.selectAndCrossoverPair(adjustedTotalFitness);
 
         assertThat(result).isEqualTo(child);
+    }
+
+    @Test
+    public void testFitnessProportionateSelection(@Mocked final TestChromosomeImpl chromosome,
+                                                  @Mocked final TestChromosomeImpl targetChromosome) {
+        final double adjustedTotalFitness = 9.8;
+        final double target = 4.5;
+        final double offset = 1.0;
+        final List<TestChromosomeImpl> generation = Arrays.asList(chromosome, targetChromosome, chromosome);
+
+        new Expectations(RandomGenerator.class, population) {{
+            RandomGenerator.randomBetween(0, adjustedTotalFitness); times = 1; result = target;
+            population.getFitnessOffset(); times = 1; result = offset;
+            population.getGeneration(); times = 1; result = generation;
+            chromosome.fitness(); times = 1; result = 4.0;
+            targetChromosome.fitness(); times = 1; result = 3.0;
+        }};
+
+        final TestChromosomeImpl result = population.fitnessProportionateSelection(adjustedTotalFitness);
+
+        assertThat(result).isEqualTo(targetChromosome);
     }
 }
