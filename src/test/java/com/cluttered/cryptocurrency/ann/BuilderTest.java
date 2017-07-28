@@ -12,6 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static com.cluttered.cryptocurrency.ann.Activation.A_TAN;
+import static com.cluttered.cryptocurrency.ann.Activation.SIGMOID;
 import static mockit.Deencapsulation.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -31,7 +32,7 @@ public class BuilderTest {
 
     @Injectable
     @SuppressWarnings("unused")
-    private Activation activation;
+    private final Activation activation = SIGMOID;
 
     @Test
     public void testCreate(@Mocked final Activation activation) {

@@ -14,6 +14,7 @@ import java.util.List;
 
 import static com.cluttered.cryptocurrency.ann.Activation.BINARY;
 import static com.cluttered.cryptocurrency.ann.Activation.ELU;
+import static com.cluttered.cryptocurrency.ann.Activation.LINEAR;
 import static java.lang.Math.random;
 import static mockit.Deencapsulation.getField;
 import static mockit.Deencapsulation.setField;
@@ -40,7 +41,7 @@ public class NeuronTest {
 
     @Injectable
     @SuppressWarnings("unused")
-    private Activation activation;
+    private final Activation activation = LINEAR;
 
     @Injectable
     @SuppressWarnings("unused")
@@ -76,7 +77,7 @@ public class NeuronTest {
         final double biasDotProduct = dotProduct + bias;
         final double activationResult = random();
 
-        new Expectations(neuron) {{
+        new Expectations(neuron, activation) {{
             neuron.dotProductWithWeights(inputs); times = 1; result = dotProduct;
             activation.execute(biasDotProduct, leakage); times = 1; result = activationResult;
         }};

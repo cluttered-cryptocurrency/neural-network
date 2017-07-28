@@ -49,7 +49,8 @@ public class NeuralNetworkTest {
     }
 
     @Test
-    public void testFromJson(@Mocked final String json) {
+    public void testFromJson() {
+        final String json = "JSON";
         final Gson gson = getField(NeuralNetwork.class, "GSON");
 
         new Expectations(gson) {{
@@ -62,7 +63,8 @@ public class NeuralNetworkTest {
     }
 
     @Test
-    public void testToJson(@Mocked final String json) {
+    public void testToJson() {
+        final String json = "JSON";
         final Gson gson = getField(NeuralNetwork.class, "GSON");
 
         new Expectations(gson) {{
@@ -75,7 +77,8 @@ public class NeuralNetworkTest {
     }
 
     @Test
-    public void testToString(@Mocked final String json) {
+    public void testToString() {
+        final String json = "JSON";
         new Expectations(neuralNetwork) {{
             neuralNetwork.toJson(); times = 1; result = json;
         }};

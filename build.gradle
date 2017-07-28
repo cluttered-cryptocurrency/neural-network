@@ -8,13 +8,13 @@ apply plugin: 'jacoco'
 sourceCompatibility = 1.8
 
 ext {
-    _gradleVersion = '4.0.1'
+    _gradleVersion = '4.0.2'
 
     slf4jVersion = '1.7.25'
     gsonVersion = '2.8.1'
 
     assertjVersion = '3.8.0'
-    jmockitVersion = '1.24'
+    jmockitVersion = '1.33'
     junitVersion = '4.12'
 }
 
