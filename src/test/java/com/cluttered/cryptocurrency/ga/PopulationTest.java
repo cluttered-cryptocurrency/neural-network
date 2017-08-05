@@ -31,7 +31,7 @@ public class PopulationTest {
             population.storeResults(); times = 2;
             population.crossoverGeneration(); times = 2;
             population.mutateGeneration(); times = 2;
-            population.incrementGenerationCount(); times = 2;
+            population.incrementEpoch(); times = 2;
         }};
 
         population.trainingLoop();

@@ -32,7 +32,7 @@ public interface Population<I, T extends Chromosome<I, T>> {
 
     void storeResults();
 
-    void incrementGenerationCount();
+    void incrementEpoch();
 
     Collection<I> getInputs();
 
@@ -44,7 +44,7 @@ public interface Population<I, T extends Chromosome<I, T>> {
             storeResults();
             crossoverGeneration();
             mutateGeneration();
-            incrementGenerationCount();
+            incrementEpoch();
         }
     }
 

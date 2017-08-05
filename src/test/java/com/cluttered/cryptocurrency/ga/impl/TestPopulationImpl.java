@@ -48,8 +48,8 @@ public class TestPopulationImpl implements Population<Double, TestChromosomeImpl
     }
 
     @Override
-    public void incrementGenerationCount() {
-        throw new UnsupportedOperationException("incrementGenerationCount() not supported");
+    public void incrementEpoch() {
+        throw new UnsupportedOperationException("incrementEpoch() not supported");
     }
 
     @Override
