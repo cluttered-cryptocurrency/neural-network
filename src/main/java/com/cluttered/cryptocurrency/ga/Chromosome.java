@@ -22,6 +22,11 @@ public interface Chromosome<I, T extends Chromosome> extends GeneticElement<T>, 
     double fitness();
 
     /**
+     * Called on elites being added to the next generation for cleanup.
+     */
+    void reset();
+
+    /**
      * Compares this {@code Chromosome} instance's fitness to another instance's fitness for rank sorting.
      *
      * @param chromosome the {@code Chromosome} object being compared to this instance.
@@ -29,5 +34,19 @@ public interface Chromosome<I, T extends Chromosome> extends GeneticElement<T>, 
      */
     default int compareTo(final T chromosome) {
         return Double.compare(this.fitness(), chromosome.fitness());
+    }
+
+    T mutate(final long epoch, final double mutationRate);
+
+    @Override
+    default T mutate(final double mutationRate) {
+        throw new UnsupportedOperationException("mutate(mutationRate) not supported use mutate(epoch, mutationRate) instead");
+    }
+
+    T crossover(final long epoch, final T chromosome);
+
+    @Override
+    default T crossover(final T chromosome) {
+        throw new UnsupportedOperationException("crossover(chromosome) not supported use crossover(epoch, chromosome) instead");
     }
 }

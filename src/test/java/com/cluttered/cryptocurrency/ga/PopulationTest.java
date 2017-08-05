@@ -63,6 +63,7 @@ public class PopulationTest {
             population.size(); times = 2; result = size;
             population.getElites(); times = 2; result = elites;
             population.getGeneration(); times = 1; result = generation;
+            chromosome.reset(); times = elites;
             population.getAdjustedTotalFitness(); times = 1; result = adjustedTotalFitness;
             population.selectAndCrossoverPair(adjustedTotalFitness); times = size - (2*elites); result = chromosome;
             population.setGeneration((List<TestChromosomeImpl>) any); times = 1;
@@ -111,10 +112,12 @@ public class PopulationTest {
                                            @Mocked final TestChromosomeImpl father,
                                            @Mocked final TestChromosomeImpl child) {
         final double adjustedTotalFitness = 99.333;
+        final long epoch = 849574;
 
         new Expectations(population) {{
             population.fitnessProportionateSelection(adjustedTotalFitness); times = 2; returns(mother, father);
-            mother.crossover(father); times = 1; result = child;
+            population.getEpoch(); times = 1; result = epoch;
+            mother.crossover(epoch, father); times = 1; result = child;
         }};
 
         final TestChromosomeImpl result = population.selectAndCrossoverPair(adjustedTotalFitness);
@@ -175,17 +178,18 @@ public class PopulationTest {
         final int size = 4;
         final double elites = 1;
         final double mutationRate = 0.015;
+        final long epoch = 58395839;
 
         new Expectations(population) {{
             population.size(); times = 1; result = size;
             population.getElites(); times = 2; result = elites;
             population.getGeneration(); times = 2; result = generation;
+            population.getEpoch(); times = 3; result = epoch;
             population.getMutationRate(); times = 3; result = mutationRate;
-            eliteChromosome.mutate(mutationRate); times = 1; result = mutatedElite;
-            chromosome.mutate(mutationRate); times = 2; result = mutated;
+            eliteChromosome.mutate(epoch, mutationRate); times = 1; result = mutatedElite;
+            chromosome.mutate(epoch, mutationRate); times = 2; result = mutated;
             population.setGeneration((List<TestChromosomeImpl>) any); times = 1;
         }};
-
 
         population.mutateGeneration();
     }

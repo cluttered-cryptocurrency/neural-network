@@ -53,6 +53,11 @@ public class TestPopulationImpl implements Population<Double, TestChromosomeImpl
     }
 
     @Override
+    public long getEpoch() {
+        throw new UnsupportedOperationException("getEpoch() not supported");
+    }
+
+    @Override
     public Collection<Double> getInputs() {
         throw new UnsupportedOperationException("getInputs() not supported");
     }

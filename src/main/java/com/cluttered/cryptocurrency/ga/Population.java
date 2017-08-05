@@ -34,6 +34,8 @@ public interface Population<I, T extends Chromosome<I, T>> {
 
     void incrementEpoch();
 
+    long getEpoch();
+
     Collection<I> getInputs();
 
     default void trainingLoop() {
@@ -42,9 +44,9 @@ public interface Population<I, T extends Chromosome<I, T>> {
             final Collection<I> inputs = getInputs();
             trainAndSortGeneration(inputs);
             storeResults();
+            incrementEpoch();
             crossoverGeneration();
             mutateGeneration();
-            incrementEpoch();
         }
     }
 
@@ -60,6 +62,8 @@ public interface Population<I, T extends Chromosome<I, T>> {
         final List<T> nextGeneration = new ArrayList<>(size());
         // Add elites twice so second set can be mutated
         final List<T> elites = getGeneration().subList(0, getElites());
+        // Reset values for a clean run next generation
+        elites.forEach(T::reset);
         nextGeneration.addAll(elites);
         nextGeneration.addAll(elites);
 
@@ -87,7 +91,7 @@ public interface Population<I, T extends Chromosome<I, T>> {
     default T selectAndCrossoverPair(final double adjustedTotalFitness) {
         final T mother = fitnessProportionateSelection(adjustedTotalFitness);
         final T father = fitnessProportionateSelection(adjustedTotalFitness);
-        return mother.crossover(father);
+        return mother.crossover(getEpoch(), father);
     }
 
     default T fitnessProportionateSelection(final double adjustedTotalFitness) {
@@ -112,7 +116,7 @@ public interface Population<I, T extends Chromosome<I, T>> {
                 .skip(getElites())
                 .parallel()
                 .forEach(chromosome -> {
-                    final T mutated = chromosome.mutate(getMutationRate());
+                    final T mutated = chromosome.mutate(getEpoch(), getMutationRate());
                     nextGeneration.add(mutated);
                 });
         setGeneration(nextGeneration);

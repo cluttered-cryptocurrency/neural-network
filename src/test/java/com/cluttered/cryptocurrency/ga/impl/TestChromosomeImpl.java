@@ -17,12 +17,17 @@ public class TestChromosomeImpl implements Chromosome<Double, TestChromosomeImpl
     }
 
     @Override
-    public TestChromosomeImpl mutate(final double mutationRate) {
+    public void reset() {
+        throw new UnsupportedOperationException("reset() not supported");
+    }
+
+    @Override
+    public TestChromosomeImpl mutate(final long epoch, final double mutationRate) {
         throw new UnsupportedOperationException("mutate() not supported");
     }
 
     @Override
-    public TestChromosomeImpl crossover(final TestChromosomeImpl mate) {
+    public TestChromosomeImpl crossover(final long epoch, final TestChromosomeImpl mate) {
         throw new UnsupportedOperationException("crossover() not supported");
     }
 }
