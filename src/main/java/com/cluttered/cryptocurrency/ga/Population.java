@@ -28,18 +28,20 @@ public interface Population<I, T extends Chromosome<I, T>> {
 
     boolean getHalt();
 
-    void incrementGenerationCount();
+    void setHalt(final boolean halt);
 
-    void storeNextGeneration();
+    void storeResults();
+
+    void incrementGenerationCount();
 
     default void trainingLoop(final Collection<I> inputs) {
         initializeGeneration();
         while (!getHalt()) {
             trainAndSortGeneration(inputs);
+            storeResults();
             crossoverGeneration();
             mutateGeneration();
             incrementGenerationCount();
-            storeNextGeneration();
         }
     }
 
