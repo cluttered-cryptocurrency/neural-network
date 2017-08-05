@@ -12,9 +12,7 @@ import org.junit.runner.RunWith;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.cluttered.cryptocurrency.ann.Activation.BINARY;
-import static com.cluttered.cryptocurrency.ann.Activation.ELU;
-import static com.cluttered.cryptocurrency.ann.Activation.LINEAR;
+import static com.cluttered.cryptocurrency.ann.Activation.*;
 import static java.lang.Math.random;
 import static mockit.Deencapsulation.getField;
 import static mockit.Deencapsulation.setField;

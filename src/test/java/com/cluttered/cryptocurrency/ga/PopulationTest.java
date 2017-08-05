@@ -26,6 +26,7 @@ public class PopulationTest {
         new Expectations(population) {{
             population.initializeGeneration(); times = 1;
             population.getHalt(); times = 3; returns(false, false, true);
+            population.getInputs(); times = 2; result = inputs;
             population.trainAndSortGeneration(inputs); times = 2;
             population.storeResults(); times = 2;
             population.crossoverGeneration(); times = 2;
@@ -33,7 +34,7 @@ public class PopulationTest {
             population.incrementGenerationCount(); times = 2;
         }};
 
-        population.trainingLoop(inputs);
+        population.trainingLoop();
     }
 
     @Test

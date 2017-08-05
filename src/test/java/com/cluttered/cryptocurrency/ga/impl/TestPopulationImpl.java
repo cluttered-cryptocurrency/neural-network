@@ -2,6 +2,7 @@ package com.cluttered.cryptocurrency.ga.impl;
 
 import com.cluttered.cryptocurrency.ga.Population;
 
+import java.util.Collection;
 import java.util.List;
 
 public class TestPopulationImpl implements Population<Double, TestChromosomeImpl> {
@@ -49,6 +50,11 @@ public class TestPopulationImpl implements Population<Double, TestChromosomeImpl
     @Override
     public void incrementGenerationCount() {
         throw new UnsupportedOperationException("incrementGenerationCount() not supported");
+    }
+
+    @Override
+    public Collection<Double> getInputs() {
+        throw new UnsupportedOperationException("getInputs() not supported");
     }
 
     @Override

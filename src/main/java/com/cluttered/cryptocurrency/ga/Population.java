@@ -34,9 +34,12 @@ public interface Population<I, T extends Chromosome<I, T>> {
 
     void incrementGenerationCount();
 
-    default void trainingLoop(final Collection<I> inputs) {
+    Collection<I> getInputs();
+
+    default void trainingLoop() {
         initializeGeneration();
         while (!getHalt()) {
+            final Collection<I> inputs = getInputs();
             trainAndSortGeneration(inputs);
             storeResults();
             crossoverGeneration();
