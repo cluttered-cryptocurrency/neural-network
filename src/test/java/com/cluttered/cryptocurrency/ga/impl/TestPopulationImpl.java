@@ -42,12 +42,17 @@ public class TestPopulationImpl implements Population<Double, TestChromosomeImpl
     }
 
     @Override
+    public void setHalt(final boolean halt) {
+        throw new UnsupportedOperationException("setHalt() not supported");
+    }
+
+    @Override
     public void incrementGenerationCount() {
         throw new UnsupportedOperationException("incrementGenerationCount() not supported");
     }
 
     @Override
-    public void storeNextGeneration() {
-        throw new UnsupportedOperationException("storeNextGeneration() not supported");
+    public void storeResults() {
+        throw new UnsupportedOperationException("storeResults() not supported");
     }
 }

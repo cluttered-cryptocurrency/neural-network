@@ -27,10 +27,10 @@ public class PopulationTest {
             population.initializeGeneration(); times = 1;
             population.getHalt(); times = 3; returns(false, false, true);
             population.trainAndSortGeneration(inputs); times = 2;
+            population.storeResults(); times = 2;
             population.crossoverGeneration(); times = 2;
             population.mutateGeneration(); times = 2;
             population.incrementGenerationCount(); times = 2;
-            population.storeNextGeneration();
         }};
 
         population.trainingLoop(inputs);
