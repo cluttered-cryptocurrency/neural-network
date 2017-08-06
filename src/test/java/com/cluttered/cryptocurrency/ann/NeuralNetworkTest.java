@@ -49,6 +49,11 @@ public class NeuralNetworkTest {
     }
 
     @Test
+    public void testGetInputSize() {
+        assertThat(neuralNetwork.getInputSize()).isEqualTo(inputSize);
+    }
+
+    @Test
     public void testFromJson() {
         final String json = "JSON";
         final Gson gson = getField(NeuralNetwork.class, "GSON");

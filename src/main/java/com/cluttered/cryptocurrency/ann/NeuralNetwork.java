@@ -36,6 +36,10 @@ public class NeuralNetwork implements GeneticElement<NeuralNetwork> {
         return Builder.create(inputSize, activation);
     }
 
+    public int getInputSize() {
+        return inputSize;
+    }
+
     public List<Double> fire(final List<Double> inputs) {
         final long startTimeNanos = System.nanoTime();
         LOG.info("########## Fire NeuralNetwork ##########");
