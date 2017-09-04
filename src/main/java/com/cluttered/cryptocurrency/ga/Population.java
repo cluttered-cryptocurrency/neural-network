@@ -108,8 +108,8 @@ public interface Population<I, T extends Chromosome<I, T>> {
 
     default void mutateGeneration() {
         final List<T> nextGeneration = new ArrayList<>(size());
-        // Twice the elites were added so the second set could be mutated
-        final List<T> elites = getGeneration().subList(0, 2 * getElites());
+        // Don't mutate first set of elites
+        final List<T> elites = getGeneration().subList(0, getElites());
         nextGeneration.addAll(elites);
 
         getGeneration().stream()
