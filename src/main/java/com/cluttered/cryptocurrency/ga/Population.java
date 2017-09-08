@@ -51,7 +51,7 @@ public interface Population<I, T extends Chromosome<I, T>> {
     }
 
     default void trainAndSortGeneration(final Collection<I> inputs) {
-        final List<T> nextGeneration = getGeneration().parallelStream()
+        final List<T> nextGeneration = getGeneration().stream()
                 .peek(chromosome -> chromosome.train(inputs))
                 .sorted(Comparator.reverseOrder())
                 .collect(Collectors.toList());
@@ -69,7 +69,6 @@ public interface Population<I, T extends Chromosome<I, T>> {
 
         final double adjustedTotalFitness = getAdjustedTotalFitness();
         IntStream.range(2 * getElites(), size())
-                .parallel()
                 .forEach(i -> {
                     final T chromosome = selectAndCrossoverPair(adjustedTotalFitness);
                     nextGeneration.add(chromosome);
@@ -79,7 +78,7 @@ public interface Population<I, T extends Chromosome<I, T>> {
 
     default double getAdjustedTotalFitness() {
         final double fitnessOffset = getFitnessOffset();
-        return getGeneration().parallelStream()
+        return getGeneration().stream()
                 .mapToDouble(chromosome -> chromosome.fitness() - fitnessOffset)
                 .sum();
     }
@@ -114,7 +113,6 @@ public interface Population<I, T extends Chromosome<I, T>> {
 
         getGeneration().stream()
                 .skip(getElites())
-                .parallel()
                 .forEach(chromosome -> {
                     final T mutated = chromosome.mutate(getEpoch(), getMutationRate());
                     nextGeneration.add(mutated);
