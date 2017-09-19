@@ -22,18 +22,30 @@ public interface Chromosome<I, T extends Chromosome> extends GeneticElement<T>, 
     double fitness();
 
     /**
+     * The value epoch in which this {@code Chromosome} was created.
+     *
+     * @return The epoch in which this {@code Chromosome} was created.
+     */
+    long getEpoch();
+
+
+    /**
      * Called on elites being added to the next generation for cleanup.
      */
     void reset();
 
     /**
      * Compares this {@code Chromosome} instance's fitness to another instance's fitness for rank sorting.
+     * If the fitness values are equivalent it will rank the one with the lesser epoch higher.
      *
      * @param chromosome the {@code Chromosome} object being compared to this instance.
      * @return The compare value (1, 0, -1).
      */
     default int compareTo(final T chromosome) {
-        return Double.compare(this.fitness(), chromosome.fitness());
+        int compare = Double.compare(this.fitness(), chromosome.fitness());
+        if(compare == 0)
+            return Long.compare(chromosome.getEpoch(), this.getEpoch());
+        return compare;
     }
 
     T mutate(final long epoch, final double mutationRate);
