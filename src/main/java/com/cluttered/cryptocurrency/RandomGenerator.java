@@ -3,6 +3,7 @@ package com.cluttered.cryptocurrency;
 import com.cluttered.cryptocurrency.ann.Activation;
 import com.cluttered.cryptocurrency.ann.Neuron;
 
+import java.security.SecureRandom;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -13,7 +14,7 @@ import java.util.stream.IntStream;
  */
 public class RandomGenerator {
 
-    private static final Random RANDOM = new Random();
+    private static final Random RANDOM = new SecureRandom(String.valueOf(System.currentTimeMillis()).getBytes());
 
     public static double randomBetween(final double min, final double max) {
         return RANDOM.nextDouble() * (max - min) + min;
