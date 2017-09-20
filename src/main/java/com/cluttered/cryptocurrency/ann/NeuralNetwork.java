@@ -78,6 +78,24 @@ public class NeuralNetwork implements GeneticElement<NeuralNetwork> {
         return new NeuralNetwork(inputSize, crossoverLayers);
     }
 
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+
+        NeuralNetwork that = (NeuralNetwork) object;
+
+        if (getInputSize() != that.getInputSize()) return false;
+        return layers.equals(that.layers);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getInputSize();
+        result = 31 * result + layers.hashCode();
+        return result;
+    }
+
     public String toJson() {
         return GSON.toJson(this);
     }

@@ -75,4 +75,30 @@ public class Neuron implements GeneticElement<Neuron> {
                 .collect(Collectors.toList());
         return new Neuron(crossoverBias, crossoverLeakage, crossoverWeights, activation);
     }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+
+        Neuron neuron = (Neuron) object;
+
+        if (Double.compare(neuron.bias, bias) != 0) return false;
+        if (Double.compare(neuron.leakage, leakage) != 0) return false;
+        if (activation != neuron.activation) return false;
+        return weights.equals(neuron.weights);
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        temp = Double.doubleToLongBits(bias);
+        result = (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(leakage);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + activation.hashCode();
+        result = 31 * result + weights.hashCode();
+        return result;
+    }
 }

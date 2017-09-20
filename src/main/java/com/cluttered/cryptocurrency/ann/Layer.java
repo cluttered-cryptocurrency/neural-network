@@ -62,4 +62,19 @@ public class Layer implements GeneticElement<Layer> {
                 .collect(Collectors.toList());
         return new Layer(crossoverNeurons);
     }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+
+        Layer layer = (Layer) object;
+
+        return neurons.equals(layer.neurons);
+    }
+
+    @Override
+    public int hashCode() {
+        return neurons.hashCode();
+    }
 }
