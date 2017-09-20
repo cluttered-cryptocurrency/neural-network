@@ -17,7 +17,11 @@ public class Layer implements GeneticElement<Layer> {
 
     private static final Logger LOG = LoggerFactory.getLogger(Layer.class);
 
-    private final List<Neuron> neurons;
+    private List<Neuron> neurons;
+
+    public Layer() {
+        // Morphia Constructor
+    }
 
     private Layer(final List<Neuron> neurons) {
         this.neurons = neurons;

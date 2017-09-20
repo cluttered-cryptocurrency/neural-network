@@ -17,10 +17,14 @@ public class Neuron implements GeneticElement<Neuron> {
 
     private static final Logger LOG = LoggerFactory.getLogger(Neuron.class);
 
-    private final double bias;
-    private final double leakage;
-    private final Activation activation;
-    private final List<Double> weights;
+    private double bias;
+    private double leakage;
+    private Activation activation;
+    private List<Double> weights;
+
+    public Neuron() {
+        // Morphia Constructor
+    }
 
     private Neuron(final double bias, final double leakage, final List<Double> weights, final Activation activation) {
         this.activation = activation;

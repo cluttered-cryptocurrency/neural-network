@@ -20,8 +20,12 @@ public class NeuralNetwork implements GeneticElement<NeuralNetwork> {
             .serializeSpecialFloatingPointValues()
             .create();
 
-    private final int inputSize;
-    private final List<Layer> layers;
+    private int inputSize;
+    private List<Layer> layers;
+
+    public NeuralNetwork() {
+        // Morphia Constructor
+    }
 
     NeuralNetwork(final int inputSize, final List<Layer> layers) {
         this.inputSize = inputSize;
