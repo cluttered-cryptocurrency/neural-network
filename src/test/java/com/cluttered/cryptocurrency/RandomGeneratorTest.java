@@ -9,8 +9,8 @@ import mockit.integration.junit4.JMockit;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.security.SecureRandom;
 import java.util.List;
-import java.util.Random;
 
 import static mockit.Deencapsulation.getField;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -26,7 +26,7 @@ public class RandomGeneratorTest {
     @SuppressWarnings("unused")
     private RandomGenerator randomGenerator;
 
-    private final Random random = getField(RandomGenerator.class, "RANDOM");
+    private final SecureRandom random = getField(RandomGenerator.class, "RANDOM");
 
     @Test
     public void testRandom() {
@@ -43,7 +43,7 @@ public class RandomGeneratorTest {
 
     @Test
     public void testRandomBias() {
-        final double expected = 9403.9584;
+        final double expected = 0.9999999999;
 
         new Expectations(random) {{
             random.nextDouble(); times = 1; result = expected;
@@ -51,7 +51,7 @@ public class RandomGeneratorTest {
 
         final double result = RandomGenerator.randomBias();
 
-        assertThat(result).isEqualTo(expected);
+        assertThat(result).isCloseTo(100, within(0.000001));
     }
 
     @Test
@@ -69,7 +69,7 @@ public class RandomGeneratorTest {
 
     @Test
     public void testRandomWeight() {
-        final double expected = 2222.4774;
+        final double expected = 0;
 
         new Expectations(random) {{
             random.nextDouble(); times = 1; result = expected;
@@ -77,7 +77,7 @@ public class RandomGeneratorTest {
 
         final double result = RandomGenerator.randomWeight();
 
-        assertThat(result).isEqualTo(expected);
+        assertThat(result).isEqualTo(-100);
     }
 
     @Test

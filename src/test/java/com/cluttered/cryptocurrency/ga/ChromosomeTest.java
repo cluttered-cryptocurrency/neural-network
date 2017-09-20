@@ -54,9 +54,10 @@ public class ChromosomeTest {
 
         new Expectations(chromosome) {{
             chromosome.fitness(); times = 2; result = fitness;
+            chromosome.getEpoch(); times = 2; returns(5L, 0L);
         }};
 
         final int result1 = chromosome.compareTo(chromosome);
-        assertThat(result1).isEqualTo(0);
+        assertThat(result1).isEqualTo(1);
     }
 }

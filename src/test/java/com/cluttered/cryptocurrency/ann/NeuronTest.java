@@ -204,12 +204,11 @@ public class NeuronTest {
 
         final double biasMate = getField(mate, "bias");
         final double leakageMate = getField(mate, "leakage");
-        final Activation activationMate = getField(mate, "activation");
         final List<Double> weightsMate = getField(mate, "weights");
 
         assertThat(biasResult).isEqualTo(biasMate);
         assertThat(leakageResult).isEqualTo(leakageMate);
-        assertThat(activationResult).isEqualTo(activationMate);
+        assertThat(activationResult).isEqualTo(activationResult);
         assertThat(weightsResult).isEqualTo(weightsMate);
     }
 }

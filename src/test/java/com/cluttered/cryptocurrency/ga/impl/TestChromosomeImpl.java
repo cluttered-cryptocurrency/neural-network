@@ -17,6 +17,11 @@ public class TestChromosomeImpl implements Chromosome<Double, TestChromosomeImpl
     }
 
     @Override
+    public long getEpoch() {
+        throw new UnsupportedOperationException("getEpoch() not supported");
+    }
+
+    @Override
     public void reset() {
         throw new UnsupportedOperationException("reset() not supported");
     }
@@ -27,7 +32,17 @@ public class TestChromosomeImpl implements Chromosome<Double, TestChromosomeImpl
     }
 
     @Override
+    public TestChromosomeImpl mutate(double mutationRate) {
+        throw new UnsupportedOperationException("mutate() not supported");
+    }
+
+    @Override
     public TestChromosomeImpl crossover(final long epoch, final TestChromosomeImpl mate) {
+        throw new UnsupportedOperationException("crossover() not supported");
+    }
+
+    @Override
+    public TestChromosomeImpl crossover(TestChromosomeImpl chromosome) {
         throw new UnsupportedOperationException("crossover() not supported");
     }
 }
