@@ -25,11 +25,11 @@ public class RandomGenerator {
     }
 
     public static double randomBias() {
-        return randomBetween(-100, 100);
+        return random();
     }
 
     public static double randomLeakage() {
-        return RANDOM.nextDouble();
+        return random();
     }
 
     public static List<Double> randomWeights(final int size) {
@@ -40,7 +40,7 @@ public class RandomGenerator {
     }
 
     public static double randomWeight() {
-        return randomBetween(-100, 100);
+        return random();
     }
 
     public static List<Neuron> randomNeurons(final int inputSize, final int size, final Activation activation) {
