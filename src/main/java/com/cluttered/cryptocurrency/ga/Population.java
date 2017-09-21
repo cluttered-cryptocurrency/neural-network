@@ -60,10 +60,9 @@ public interface Population<I, T extends Chromosome<I, T>> {
 
     default void crossoverGeneration() {
         final List<T> nextGeneration = new ArrayList<>(size());
+
         // Add elites twice so second set can be mutated
         final List<T> elites = getGeneration().subList(0, getElites());
-        // Reset values for a clean run next generation
-        elites.forEach(T::reset);
         nextGeneration.addAll(elites);
         nextGeneration.addAll(elites);
 
@@ -73,6 +72,8 @@ public interface Population<I, T extends Chromosome<I, T>> {
                     final T chromosome = selectAndCrossoverPair(adjustedTotalFitness);
                     nextGeneration.add(chromosome);
                 });
+
+        elites.forEach(T::reset);
         setGeneration(nextGeneration);
     }
 
