@@ -1,5 +1,7 @@
 package com.cluttered.cryptocurrency.ga;
 
+import com.cluttered.cryptocurrency.SameChromosomeException;
+
 import java.util.Collection;
 
 /**
@@ -55,7 +57,7 @@ public interface Chromosome<I, T extends Chromosome> extends GeneticElement<T>, 
         throw new UnsupportedOperationException("mutate(mutationRate) not supported use mutate(epoch, mutationRate) instead");
     }
 
-    T crossover(final long epoch, final T chromosome);
+    T crossover(final long epoch, final T chromosome) throws SameChromosomeException;
 
     @Override
     default T crossover(final T chromosome) {

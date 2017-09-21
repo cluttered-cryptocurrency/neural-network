@@ -1,5 +1,7 @@
 package com.cluttered.cryptocurrency.ga;
 
+import com.cluttered.cryptocurrency.SameChromosomeException;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
@@ -91,7 +93,11 @@ public interface Population<I, T extends Chromosome<I, T>> {
     default T selectAndCrossoverPair(final double adjustedTotalFitness) {
         final T mother = fitnessProportionateSelection(adjustedTotalFitness);
         final T father = fitnessProportionateSelection(adjustedTotalFitness);
-        return mother.crossover(getEpoch(), father);
+        try {
+            return mother.crossover(getEpoch(), father);
+        } catch (final SameChromosomeException e) {
+            return selectAndCrossoverPair(adjustedTotalFitness);
+        }
     }
 
     default T fitnessProportionateSelection(final double adjustedTotalFitness) {
