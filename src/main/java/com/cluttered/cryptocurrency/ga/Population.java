@@ -32,7 +32,7 @@ public interface Population<I, T extends Chromosome<I, T>> {
 
     void setHalt(final boolean halt);
 
-    void storeResults();
+    void storeResults(final Collection<I> inputs);
 
     void incrementEpoch();
 
@@ -45,7 +45,7 @@ public interface Population<I, T extends Chromosome<I, T>> {
         while (!getHalt()) {
             final Collection<I> inputs = getInputs();
             trainAndSortGeneration(inputs);
-            storeResults();
+            storeResults(inputs);
             incrementEpoch();
             crossoverGeneration();
             mutateGeneration();
