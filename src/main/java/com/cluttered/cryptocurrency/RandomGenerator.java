@@ -16,6 +16,9 @@ public class RandomGenerator {
 
     private static final Random RANDOM = new SecureRandom(String.valueOf(System.currentTimeMillis()).getBytes());
 
+    private static double weightRange = 1;
+    private static double biasRange = 10;
+
     public static double randomBetween(final double min, final double max) {
         return RANDOM.nextDouble() * (max - min) + min;
     }
@@ -25,7 +28,7 @@ public class RandomGenerator {
     }
 
     public static double randomBias() {
-        return randomBetween(-100, 100);
+        return randomBetween(-biasRange, biasRange);
     }
 
     public static double randomLeakage() {
@@ -40,7 +43,7 @@ public class RandomGenerator {
     }
 
     public static double randomWeight() {
-        return randomBetween(-100, 100);
+        return randomBetween(-weightRange, weightRange);
     }
 
     public static List<Neuron> randomNeurons(final int inputSize, final int size, final Activation activation) {
@@ -51,5 +54,21 @@ public class RandomGenerator {
 
     public static boolean coinFlip() {
         return RANDOM.nextBoolean();
+    }
+
+    public static double getWeightRange() {
+        return weightRange;
+    }
+
+    public static void setWeightRange(final double newWeightRange) {
+        weightRange = newWeightRange;
+    }
+
+    public static double getBiasRange() {
+        return biasRange;
+    }
+
+    public static void setBiasRange(final double newBiasRange) {
+        biasRange = newBiasRange;
     }
 }
